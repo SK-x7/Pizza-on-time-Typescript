@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Vite compatible module resolution */
+    "moduleResolution": "node",   // Changed from "Bundler" to "node" for Vite compatibility
+    "isolatedModules": true,
+    "moduleDetection": "auto",    // Changed from "force" to "auto", as "force" can be problematic in some setups
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* TypeScript Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"]
+}
