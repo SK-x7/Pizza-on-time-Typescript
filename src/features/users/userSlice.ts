@@ -30,7 +30,10 @@ export const fetchAddress = createAsyncThunk('user/fetchAddress',async function(
 interface initialStates{
     username: string;
     status: string;
-    position:{};
+    position:{
+      latitude?:number;
+      longitude?:number;
+    };
     address:string;
     error:string;
 }

@@ -32,6 +32,7 @@ export default function CreateNewUser() {
         <p className="mb-4 text-sm text-stone-600 md:text-base flex justify-center items-center">👋 Welcome! Please start by telling us your name:</p>
         <input
         type="text"
+        max={20}
         placeholder="Your full name"
         value={username}
         onChange={handleNameChange}
