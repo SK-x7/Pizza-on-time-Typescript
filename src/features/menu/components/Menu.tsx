@@ -1,5 +1,5 @@
 import {useLoaderData} from "react-router-dom"
-import { getMenu } from "../../../apis/apiRestaurant"
+import { getMenuFromSupabase } from "../../../apis/apiRestaurant"
 import { MenuItem } from "../menuInterfaces.js";
 import MenuItems from "./MenuItems.js";
 
@@ -18,6 +18,6 @@ export default function Menu() {
 }
 
 export async function fetchMenuFromApi() {
-    const menu=await getMenu();
+    const menu=await getMenuFromSupabase();
     return menu;
 }

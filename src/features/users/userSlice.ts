@@ -9,7 +9,7 @@ function getPosition():Promise<GeolocationPosition> {
   });
 }
 
-export const fetchAddress = createAsyncThunk('user/fetchAddress',async function(params) {
+export const fetchAddress = createAsyncThunk('user/fetchAddress',async function() {
     // 1) We get the user's geolocation position
     const positionObj = await getPosition();
     const position = {

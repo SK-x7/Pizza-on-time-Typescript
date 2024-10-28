@@ -110,6 +110,8 @@ function Order() {
 
 export async function loader({ params }:LoaderFunctionArgs) {
   const order = await getOrder(params.orderId as string);
+  console.log(order,"2️⃣");
+  
   return order;
 }
 

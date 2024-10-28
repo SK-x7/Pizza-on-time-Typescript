@@ -1,9 +1,39 @@
 let API_URL = import.meta.env.VITE_API_URL;
+let SUPABASE_PROJECT_URL = import.meta.env.VITE_SUPABASE_URL;
+let SUPABASE_API_KEY = import.meta.env.VITE_SUPABASE_APIKEY;
 
 
 import { MenuItem } from "../features/menu/menuInterfaces";
 import { newOrderInterface } from "../features/order/components/CreateOrder";
+import { createClient } from '@supabase/supabase-js'
 
+
+
+
+
+const supabase = createClient(SUPABASE_PROJECT_URL, SUPABASE_API_KEY)
+
+
+
+
+
+export async function getMenuFromSupabase():Promise<MenuItem[]|void> {
+  let { data, error } = await supabase
+  .from('menu')
+  .select('*');
+  if(error){
+    alert(error.message);
+    return;
+  }
+  
+  if(!data){
+    alert("There is no data to display");
+    return;
+  }
+  
+  return data as MenuItem[];
+}
+  
 
 
 export async function getMenu():Promise<MenuItem[]>  {

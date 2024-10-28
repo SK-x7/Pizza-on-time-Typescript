@@ -3,8 +3,6 @@ interface getAddressParams{
     longitude:number;
 }
 
-
-
 export async function getAddress({ latitude, longitude }:getAddressParams) {
     const res = await fetch(
       `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}`
