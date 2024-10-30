@@ -9,6 +9,9 @@ import Order from './features/order/components/Order'
 import {loader as orderLoader}  from './features/order/components/Order'
 import {action as createOrderAction}  from './features/order/components/CreateOrder'
 import {action as updateOrderAction}  from './features/order/components/UpdateOrder'
+import {action as signUpAction}  from './features/users/SignUp'
+import Login from './features/users/LogIn';
+import SignUp from './features/users/SignUp';
 
 // Create the router with routes and loaders
 const router = createBrowserRouter([
@@ -17,8 +20,20 @@ const router = createBrowserRouter([
     element: <Layout/>,  // Wrap the entire app with Header
     children: [
       {
-        path: '/',
+        // path: '/',
         element: <Home />,
+        errorElement:<Error></Error>,
+        children:[
+          {
+            path:'/',
+            element:<Login></Login>,
+            errorElement:<Error></Error>,
+          },{
+            path:'/signup',
+            element:<SignUp></SignUp>,
+            action:signUpAction
+          }
+        ]
       },
       {
         path: '/home',

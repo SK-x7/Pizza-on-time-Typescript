@@ -11,7 +11,7 @@ import { createClient } from '@supabase/supabase-js'
 
 
 
-const supabase = createClient(SUPABASE_PROJECT_URL, SUPABASE_API_KEY)
+export const supabase = createClient(SUPABASE_PROJECT_URL, SUPABASE_API_KEY)
 
 
 
