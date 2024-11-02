@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActionFunctionArgs, Form, Link, redirect, useActionData, useNavigation } from 'react-router-dom';
 import Button from '../../UiComponents/Button';
+import { supabase } from '../../apis/apiRestaurant';
+import { toast } from 'react-hot-toast';
 // import { createOrder } from '../../../apis/apiRestaurant';
 // import Button from '../../../UiComponents/Button'
 // import {clearCart, getCart, getTotalCartPrice} from "../../cart/cartSlice";
@@ -31,14 +33,11 @@ const isValidPhone = (str:string) =>
 //   }
   
   
+
+
+
   function Login() {
-
-  
-
-
-  
-  
-  return (
+    return (
     <div className="sm:px-4 xl:px-7 py-6 min-w-72 ring-1 ring-neutral-400 border-none  xl:w-[25vw] rounded-lg flex flex-col gap-8">
         <div className=' flex flex-col gap-3'>
             

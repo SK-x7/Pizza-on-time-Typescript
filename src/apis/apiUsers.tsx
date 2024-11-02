@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, PostgrestError } from "@supabase/supabase-js";
 import {toast} from "react-hot-toast"
 import { redirect } from "react-router-dom";
 
@@ -15,20 +15,43 @@ export const supabase = createClient(SUPABASE_PROJECT_URL, SUPABASE_API_KEY)
 
 export async function signUser(obj:signupFormDataInterface) {
     
-    const { data, error } = await supabase
-    .from('users')
-    .insert([
-      obj
-    ])
-    .select()
-  if(!data) return;
+  
+    
+let { data, error } = await supabase.auth.signUp({
+  email: obj.email,
+  password: obj.password
+})
+
+const user=data.user;
+const session=data.session;
+
+    
+  if(!user) return;
   if(error){
-    console.log(error)
-    // toast.error(error.message);
+    console.log(error);
+    toast.error("There was an error in signing you up please try again");
+    
     return;
   }
-  console.log(data);
+  console.log(user);
+  
+  const { data:userCreated, error:err } = await supabase
+  .from('users')
+  .insert([
+    { user_id:user?.id,username:obj.username},
+  ])
+  .select()
+  if(err){
+    console.log(err);
+    toast.error("Your signup was complete but there is an error regarding personal information",{duration: 3000});
+    toast.error("You can update them later from your profile page",{duration: 3000});
+    return redirect("/menu");
+  } 
+  
+  if(userCreated){
+    if (session) {
+      localStorage.setItem('supabaseSession', JSON.stringify(session));
+    }
+  }
   return redirect("/menu");
-  
-  
 }

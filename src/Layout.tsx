@@ -1,9 +1,60 @@
-import { Outlet } from 'react-router-dom';
+import { UserIdentity } from '@supabase/supabase-js';
+import { useEffect } from 'react';
+import { toast } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { supabase } from './apis/apiRestaurant';
 import CartOverview from './features/cart/components/CartOverview';
+import { updateName } from './features/users/userSlice';
 import Header from './UiComponents/Header';
+
+
+interface UserInterface {
+  id: number;
+  user_id: string;
+  username?: string;
+  created_at: string;
+}
 
 // Layout component that wraps the Header and renders child routes
 function Layout() {
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
+  async function checkUserSession() {
+    const session = localStorage.getItem('supabaseSession');
+    const currentSession = session ? JSON.parse(session) : null;
+  
+    if (currentSession) {
+      const { data: { session}, error } = await supabase.auth.setSession(currentSession);
+      if (error) {
+        console.error('Session restore error:', error.message);
+        toast.error(error.message);
+      } else if (session) {
+        console.log('Session restored:', session);
+        toast.success("Login successful!✔️");
+        let { data:users, error } = await supabase
+  .from('users')
+  .select('*').eq("user_id",session.user.id);
+  console.log(users);
+        
+        const user:UserInterface=users&&users[0];
+        if(user.username){
+          dispatch(updateName(user.username));
+        }
+        return navigate("/menu");
+        // window.location.href = '/menu'; // Redirect if valid
+      }
+    } else {
+      return navigate("/login");
+      window.location.href = '/login'; // No session found, redirect to login
+    }
+  }
+  
+  useEffect(() => {
+    checkUserSession();
+  
+  
+  }, [])
   return (
     <div className='h-screen grid grid-rows-[auto_1fr_auto]'>
       <Header />
