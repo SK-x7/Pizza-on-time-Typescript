@@ -4,6 +4,7 @@ import { ActionFunctionArgs, Form, Link, redirect, useActionData, useNavigation 
 import Button from '../../UiComponents/Button';
 import { supabase } from '../../apis/apiRestaurant';
 import { toast } from 'react-hot-toast';
+import { loginFormDataInterface, loginUser } from '../../apis/apiUsers';
 // import { createOrder } from '../../../apis/apiRestaurant';
 // import Button from '../../../UiComponents/Button'
 // import {clearCart, getCart, getTotalCartPrice} from "../../cart/cartSlice";
@@ -75,8 +76,11 @@ export async function action({ request }:ActionFunctionArgs) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   console.log(data);
-
-  
+  const obj:loginFormDataInterface={
+    email:data.email as string,
+    password:data.password as string
+  }
+  return await loginUser(obj);
   
 //   const order:newOrderInterface = {
 //     ...data,
@@ -94,10 +98,10 @@ export async function action({ request }:ActionFunctionArgs) {
 
   // If everything is okay, create new order and redirect
 
-//   const newOrder = await SignUp(order);
+  // const newOrder = await SignUp(order);
 //   console.log(newOrder,"1️⃣");
 //   store.dispatch(clearCart());
-//   return redirect(`/order/${newOrder.id}`);
+  // return redirect(`/home`);
 
   // return null;
 }

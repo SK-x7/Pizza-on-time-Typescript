@@ -2,10 +2,10 @@ import { UserIdentity } from '@supabase/supabase-js';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { json, Outlet, useNavigate } from 'react-router-dom';
 import { supabase } from './apis/apiRestaurant';
 import CartOverview from './features/cart/components/CartOverview';
-import { updateName } from './features/users/userSlice';
+import { updateName, updateUser } from './features/users/userSlice';
 import Header from './UiComponents/Header';
 
 
@@ -29,9 +29,12 @@ function Layout() {
       if (error) {
         console.error('Session restore error:', error.message);
         toast.error(error.message);
+        localStorage.removeItem('supabaseSession');
+        return navigate("/");
       } else if (session) {
         console.log('Session restored:', session);
         toast.success("Login successful!✔️");
+        localStorage.setItem('supabaseSession',JSON.stringify(session));
         let { data:users, error } = await supabase
   .from('users')
   .select('*').eq("user_id",session.user.id);
@@ -39,13 +42,14 @@ function Layout() {
         
         const user:UserInterface=users&&users[0];
         if(user.username){
-          dispatch(updateName(user.username));
+          dispatch(updateUser(user));
         }
         return navigate("/menu");
         // window.location.href = '/menu'; // Redirect if valid
       }
     } else {
-      return navigate("/login");
+      localStorage.removeItem('supabaseSession');
+      return navigate("/");
       window.location.href = '/login'; // No session found, redirect to login
     }
   }

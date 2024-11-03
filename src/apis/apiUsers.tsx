@@ -12,6 +12,11 @@ export const supabase = createClient(SUPABASE_PROJECT_URL, SUPABASE_API_KEY)
     username: string;
     verifyPassword?:string;
   }
+  
+  export interface loginFormDataInterface{
+    email: string;
+    password: string;
+  }
 
 export async function signUser(obj:signupFormDataInterface) {
     
@@ -54,4 +59,20 @@ const session=data.session;
     }
   }
   return redirect("/menu");
+}
+
+export async function loginUser(obj:loginFormDataInterface) {
+  let {data,error}=await supabase.auth.signInWithPassword(obj);
+  if(error) {
+    toast.error(error.message);
+    return;
+  }
+  if(data){
+    console.log(data);
+  }
+  if(data.session){
+      toast.success("Login successful✔️✔️");
+      localStorage.setItem('supabaseSession', JSON.stringify(data.session));
+      return redirect("/menu");
+  }
 }

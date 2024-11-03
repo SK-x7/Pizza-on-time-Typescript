@@ -10,6 +10,7 @@ import {loader as orderLoader}  from './features/order/components/Order'
 import {action as createOrderAction}  from './features/order/components/CreateOrder'
 import {action as updateOrderAction}  from './features/order/components/UpdateOrder'
 import {action as signUpAction}  from './features/users/SignUp'
+import {action as loginAction}  from './features/users/LogIn'
 import Login from './features/users/LogIn';
 import SignUp from './features/users/SignUp';
 
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
             path:'/',
             element:<Login></Login>,
             errorElement:<Error></Error>,
+            action:loginAction
           },{
             path:'/signup',
             element:<SignUp></SignUp>,

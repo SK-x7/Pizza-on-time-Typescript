@@ -92,7 +92,7 @@ const isValidPhone = (str:string) =>
             )}
           </div>
           
-          {!position.latitude && !position.longitude&&
+          {position&&!position.latitude && !position.longitude&&
           <span className='absolute right-[3px] z-10 top-[3px] sm:right-[5px] md:top-[5px]' >
         <Button disabled={isLOadingAddress} type='small'  onClick={(e)=>{
           e.preventDefault();
@@ -116,7 +116,7 @@ const isValidPhone = (str:string) =>
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <input type="hidden" name="position" value={position.longitude&&position.latitude?`${position.latitude},${position.longitude}`:''} />
+          <input type="hidden" name="position" value={position&&position.longitude&&position.latitude?`${position.latitude},${position.longitude}`:''} />
           <Button disabled={isSubmitting||isLOadingAddress} type="primary">
             {isSubmitting ? 'Placing order....' : `Order now for $ ${totalPrice}`}
           </Button>
@@ -147,12 +147,14 @@ export async function action({ request }:ActionFunctionArgs) {
 
   if (Object.keys(errors).length > 0) return errors;
 
+  console.log(order,"1️⃣╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯");
   // If everything is okay, create new order and redirect
 
-  const newOrder = await createOrder(order);
-  console.log(newOrder,"1️⃣");
-  store.dispatch(clearCart());
-  return redirect(`/order/${newOrder.id}`);
+  // const newOrder = await createOrder(order);
+  // console.log(newOrder,"1️⃣");
+  // store.dispatch(clearCart());
+  return;
+  // return redirect(`/order/${newOrder.id}`);
 
   // return null;
 }

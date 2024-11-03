@@ -25,12 +25,18 @@ export const fetchAddress = createAsyncThunk('user/fetchAddress',async function(
     return { position, address };
 })
 
-
+interface user{
+  createdAt?:Date;
+  id?:number;
+  user_id?:string;
+  username?:string;  
+}
 
 interface initialStates{
-    username: string;
-    status: string;
-    position:{
+  user?:user;
+    username?: string;
+    status?: string;
+    position?:{
       latitude?:number;
       longitude?:number;
     };
@@ -39,6 +45,7 @@ interface initialStates{
 }
 
 const initialState:initialStates ={
+  user:{},
   username:'',
   status:'idle',
   position:{},
@@ -52,6 +59,8 @@ const userSlice = createSlice({
    reducers:{
     updateName(state,action){
       state.username = action.payload;
+    },updateUser(state,action){
+      state.user=action.payload;
     }
   },
   extraReducers:(builder)=>builder.addCase(fetchAddress.pending,(state,action)=>{state.status='loading'}).addCase(fetchAddress.fulfilled,(state,action)=>{
@@ -64,11 +73,12 @@ const userSlice = createSlice({
   })
 })
 
-export const {updateName} = userSlice.actions;
+export const {updateName,updateUser} = userSlice.actions;
 
 export default userSlice.reducer;
 
 export const getUserName = (state:{user:initialStates})=>state.user.username;
+export const getUser = (state:{user:initialStates})=>state.user.user;
 
 
 
