@@ -21,16 +21,17 @@ export function formatCurrency(value:number) {
   }
   
   export function getEstimatedDeliveryTime(min:number, max:number) {
-    const currentDate = new Date();
-    const estimatedMinutes = Math.floor(Math.random() * (max - min + 1)) + min;
-    
-    // Add estimated minutes to the current date
-    currentDate.setMinutes(currentDate.getMinutes() + estimatedMinutes);
-    
-    // Format the date as 'YYYY-MM-DD HH:MM'
-    // const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')} ${String(currentDate.getHours()).padStart(2, '0')}:${String(currentDate.getMinutes()).padStart(2, '0')}`;
-    
-    return currentDate;
+    const now = new Date();
+    console.log(now.getTime().toLocaleString);
+    // Generate a random number of minutes between min and max
+    const ISTOffset = 330; // IST is UTC + 5:30
+  const offsetInMilliseconds = ISTOffset * 60 * 1000;
+    const randomMinutes = Math.floor(Math.random() * (max - min + 1)) + min;
+  
+    // Create a new date object representing the estimated delivery time
+    const estimatedDeliveryTime = new Date(now.getTime() + randomMinutes * 60000+offsetInMilliseconds);
+  
+    return estimatedDeliveryTime;
   }
   
   // Example usage for a random delivery time between 30 and 60 minutes

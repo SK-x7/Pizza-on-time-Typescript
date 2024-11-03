@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActionFunctionArgs, Form, redirect, useActionData, useNavigation } from 'react-router-dom';
 import { createOrder } from '../../../apis/apiRestaurant';
@@ -7,8 +7,9 @@ import {clearCart, getCart, getTotalCartPrice} from "../../cart/cartSlice";
 import EmptyCart from "../../cart/components/EmptyCart"
 import store, { RootState,AppDispatch } from "../../../store"
 // import { formatCurrency } from '../../utilities/helpers';
-import { fetchAddress } from '../../users/userSlice';
+import { fetchAddress, getUserId } from '../../users/userSlice';
 import { itemInCart } from '../../cart/components/CartItem';
+import { getEstimatedDeliveryTime } from '../../../utils/helpers';
 // import Button from '../../ui/Button';
 
 // https://uibakery.io/regex-library/phone-number
@@ -32,6 +33,7 @@ const isValidPhone = (str:string) =>
     phone:string|number;
     position?:string;
     priority:boolean;
+    priorityPrice?:number;
     status?:string;
     userId?:string;
     estimatedDelivery?:Date;
@@ -49,12 +51,33 @@ const isValidPhone = (str:string) =>
 
   
   const cart = useSelector(getCart);
+  const userId = useSelector(getUserId);
   const totalCartPrice = useSelector(getTotalCartPrice);
   const priorityPrice=withPriority?totalCartPrice*0.2:0;
   const totalPrice = totalCartPrice+priorityPrice;
   if(!cart.length)  return <EmptyCart></EmptyCart>
   
 
+  
+  
+    async function handleFormSubmit(e:FormEvent) {
+      e.preventDefault();
+      const formElement=e.target as HTMLFormElement;
+      const formData=new FormData(formElement);
+      const estimatedDelivery=getEstimatedDeliveryTime(30,60);
+      const data:newOrderInterface={
+        customer: formData.get('customer') as string,
+        phone: formData.get('phone') as string,
+        address: formData.get('address') as string,
+        priority: formData.get('priority') === 'true',
+        cart,
+        userId,
+        status:"preparing",
+        estimatedDelivery,
+      }
+      console.log(data);
+      return await createOrder(data,totalCartPrice);
+    }
 
   
   const formErrors = useActionData() as ErrorsInForm;
@@ -64,7 +87,7 @@ const isValidPhone = (str:string) =>
       <h2 className="mb-8 text-xl font-semibold">Ready to order? Let's go!</h2>
 
       {/* <Form method="POST" action="/order/new"> */}
-      <Form method="POST">
+      <form onSubmit={handleFormSubmit}>
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
           <label className="sm:basis-40">First Name</label>
           <input className="input grow" type="text" name="customer" required defaultValue={username}/>
@@ -129,45 +152,11 @@ const isValidPhone = (str:string) =>
             {isSubmitting ? 'Placing order....' : `Order now for $ ${Math.round(totalPrice)}`}
           </Button>
         </div>
-      </Form>
+      </form>
     </div>
   );
 }
 
-export async function action({ request }:ActionFunctionArgs) {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-  console.log(data);
 
-  // const totalCartPrice = useSelector(getTotalCartPrice);
-
-  
-  const order:newOrderInterface = {
-    ...data,
-    phone:data.phone as string,
-    cart: JSON.parse(data.cart as string),
-    priority: data.priority === 'true',
-    status:"preparing"
-    // orderPrice:Math.round(data.priority==="true"?totalCartPrice*0.2:totalCartPrice)
-  };
-  
-  const errors:ErrorsInForm = {};
-  if (!isValidPhone(order.phone as string))
-    errors.phone =
-      'Please give us your correct phone number. We might need it to contact you.';
-
-  if (Object.keys(errors).length > 0) return errors;
-
-  console.log(order,"1️⃣╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯");
-  // If everything is okay, create new order and redirect
-
-  await createOrder(order);
-  // console.log(newOrder,"1️⃣");
-  // store.dispatch(clearCart());
-  return null;
-  // return redirect(`/order/${newOrder.id}`);
-
-  // return null;
-}
 
 export default CreateOrder;

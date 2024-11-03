@@ -92,7 +92,7 @@ function Order() {
 
       <div className="space-y-2 bg-stone-200 px-6 py-5">
         <p className="text-sm font-medium text-stone-600">
-          Price pizza: {formatCurrency(orderPrice)}
+          Price pizza: {formatCurrency(orderPrice-priorityPrice)}
         </p>
         {priority && (
           <p className="text-sm font-medium text-stone-600">
@@ -100,7 +100,7 @@ function Order() {
           </p>
         )}
         <p className="font-bold">
-          To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}
+          To pay on delivery: {formatCurrency(orderPrice)}
         </p>
       </div>
       {!priority&&<UpdateOrder order={order}></UpdateOrder>}
@@ -109,6 +109,7 @@ function Order() {
 }
 
 export async function loader({ params }:LoaderFunctionArgs) {
+  console.log(params.orderId);
   const order = await getOrder(params.orderId as string);
   console.log(order,"2️⃣");
   

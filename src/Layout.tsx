@@ -44,7 +44,7 @@ function Layout() {
         if(user.username){
           dispatch(updateUser(user));
         }
-        return navigate("/menu");
+        return;
         // window.location.href = '/menu'; // Redirect if valid
       }
     } else {

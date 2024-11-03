@@ -7,7 +7,6 @@ import Menu, { fetchMenuFromApi } from './features/menu/components/Menu';
 import CreateOrder from './features/order/components/CreateOrder'
 import Order from './features/order/components/Order'
 import {loader as orderLoader}  from './features/order/components/Order'
-import {action as createOrderAction}  from './features/order/components/CreateOrder'
 import {action as updateOrderAction}  from './features/order/components/UpdateOrder'
 import {action as signUpAction}  from './features/users/SignUp'
 import {action as loginAction}  from './features/users/LogIn'
@@ -53,7 +52,6 @@ const router = createBrowserRouter([
       {
         path:'/order/new',
         element:<CreateOrder/>,
-        action:createOrderAction,
       },
       {
         path:'/order/:orderId',

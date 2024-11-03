@@ -7,9 +7,12 @@ import { MenuItem } from "../features/menu/menuInterfaces";
 import { newOrderInterface } from "../features/order/components/CreateOrder";
 import { createClient } from '@supabase/supabase-js'
 import { useSelector } from "react-redux";
-import { getTotalCartPrice } from "../features/cart/cartSlice";
+import { clearCart, getTotalCartPrice } from "../features/cart/cartSlice";
 import { getUserId } from "../features/users/userSlice";
 import { getEstimatedDeliveryTime } from "../utils/helpers";
+import { toast } from "react-hot-toast";
+import store from "../store";
+import { Navigate, redirect } from "react-router-dom";
 
 
 
@@ -51,38 +54,52 @@ export async function getMenu():Promise<MenuItem[]>  {
 }
 
 export async function getOrder(id:string) {
-  const res = await fetch(`${API_URL}/order/${id}`);
-  if (!res.ok) throw Error(`Couldn't find order #${id}`);
-
-  const { data } = await res.json();
-  return data;
+  const {data,error} = await supabase.from("order").select().eq('id',id);
+  if(error){
+    toast.error(`Could not find order of orderId : ${id}`);
+    return window.location.href="/menu";
+  }
+  
+  if(data.length){
+    console.log(data);
+  }
+  
+  return data[0];
 }
 
 
-export async function createOrder(obj:newOrderInterface) {
-  const estimatedTime=getEstimatedDeliveryTime(30,60);
-  const cartPrice=useSelector(getTotalCartPrice);
-  const userId=useSelector(getUserId);
+export async function createOrder(obj:newOrderInterface,totalCartPrice:number) {
+  console.log(typeof obj.priority,obj.priority);
   const temp:newOrderInterface={
     ...obj,
-    orderPrice:obj.priority?cartPrice*0.2:cartPrice,
-    userId,
-    estimatedDelivery:estimatedTime
+    orderPrice:obj.priority?Math.round(totalCartPrice+(totalCartPrice*0.2)):totalCartPrice,
+    priorityPrice:obj.priority?Math.round(totalCartPrice*0.2):0
   }
   console.log(obj);
   console.log(temp,"(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)");
   try {
-    const res = await fetch(`${API_URL}/order`, {
-      method: 'POST',
-      body: JSON.stringify(obj),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const { data, error } = await supabase
+  .from('order')
+  .insert([
+    temp
+  ])
+  .select()
+  if(error){
+    toast.error(error.message);
+    return;
+  }
+  
+  if(data){
+    const newOrder=data.length&&data[0];
+    console.log(newOrder,"🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉");
+    store.dispatch(clearCart());
+    console.log(newOrder.id);
+    // return ;
+    return window.location.href=`/order/${newOrder.id}`;
+  }
+  
 
-    if (!res.ok) throw Error();
-    const { data } = await res.json();
-    return data;
+    
   } catch {
     throw Error('Failed creating your order');
   }
