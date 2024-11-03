@@ -8,6 +8,7 @@ import EmptyCart from "../../cart/components/EmptyCart"
 import store, { RootState,AppDispatch } from "../../../store"
 // import { formatCurrency } from '../../utilities/helpers';
 import { fetchAddress } from '../../users/userSlice';
+import { itemInCart } from '../../cart/components/CartItem';
 // import Button from '../../ui/Button';
 
 // https://uibakery.io/regex-library/phone-number
@@ -24,9 +25,16 @@ const isValidPhone = (str:string) =>
   
   export interface newOrderInterface{
     // data:FormDataEntryValue;
+    address?:string;
+    cart:itemInCart[];
+    customer?:string;
+    orderPrice?:number;
     phone:string|number;
-    cart:any;
+    position?:string;
     priority:boolean;
+    status?:string;
+    userId?:string;
+    estimatedDelivery?:Date;
   }
   
   
@@ -118,7 +126,7 @@ const isValidPhone = (str:string) =>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
           <input type="hidden" name="position" value={position&&position.longitude&&position.latitude?`${position.latitude},${position.longitude}`:''} />
           <Button disabled={isSubmitting||isLOadingAddress} type="primary">
-            {isSubmitting ? 'Placing order....' : `Order now for $ ${totalPrice}`}
+            {isSubmitting ? 'Placing order....' : `Order now for $ ${Math.round(totalPrice)}`}
           </Button>
         </div>
       </Form>
@@ -129,15 +137,18 @@ const isValidPhone = (str:string) =>
 export async function action({ request }:ActionFunctionArgs) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-  
+  console.log(data);
 
-  
+  // const totalCartPrice = useSelector(getTotalCartPrice);
+
   
   const order:newOrderInterface = {
     ...data,
     phone:data.phone as string,
     cart: JSON.parse(data.cart as string),
     priority: data.priority === 'true',
+    status:"preparing"
+    // orderPrice:Math.round(data.priority==="true"?totalCartPrice*0.2:totalCartPrice)
   };
   
   const errors:ErrorsInForm = {};
@@ -150,10 +161,10 @@ export async function action({ request }:ActionFunctionArgs) {
   console.log(order,"1️⃣╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯╰(*°▽°*)╯");
   // If everything is okay, create new order and redirect
 
-  // const newOrder = await createOrder(order);
+  await createOrder(order);
   // console.log(newOrder,"1️⃣");
   // store.dispatch(clearCart());
-  return;
+  return null;
   // return redirect(`/order/${newOrder.id}`);
 
   // return null;

@@ -6,6 +6,10 @@ let SUPABASE_API_KEY = import.meta.env.VITE_SUPABASE_APIKEY;
 import { MenuItem } from "../features/menu/menuInterfaces";
 import { newOrderInterface } from "../features/order/components/CreateOrder";
 import { createClient } from '@supabase/supabase-js'
+import { useSelector } from "react-redux";
+import { getTotalCartPrice } from "../features/cart/cartSlice";
+import { getUserId } from "../features/users/userSlice";
+import { getEstimatedDeliveryTime } from "../utils/helpers";
 
 
 
@@ -55,11 +59,22 @@ export async function getOrder(id:string) {
 }
 
 
-export async function createOrder(newOrder:newOrderInterface) {
+export async function createOrder(obj:newOrderInterface) {
+  const estimatedTime=getEstimatedDeliveryTime(30,60);
+  const cartPrice=useSelector(getTotalCartPrice);
+  const userId=useSelector(getUserId);
+  const temp:newOrderInterface={
+    ...obj,
+    orderPrice:obj.priority?cartPrice*0.2:cartPrice,
+    userId,
+    estimatedDelivery:estimatedTime
+  }
+  console.log(obj);
+  console.log(temp,"(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)(●'◡'●)");
   try {
     const res = await fetch(`${API_URL}/order`, {
       method: 'POST',
-      body: JSON.stringify(newOrder),
+      body: JSON.stringify(obj),
       headers: {
         'Content-Type': 'application/json',
       },

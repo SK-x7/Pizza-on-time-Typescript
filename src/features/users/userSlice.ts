@@ -26,10 +26,10 @@ export const fetchAddress = createAsyncThunk('user/fetchAddress',async function(
 })
 
 interface user{
-  createdAt?:Date;
-  id?:number;
-  user_id?:string;
-  username?:string;  
+  readonly createdAt?:Date;
+  readonly id?:number;
+  readonly user_id?:string;
+  readonly username?:string;  
 }
 
 interface initialStates{
@@ -79,6 +79,7 @@ export default userSlice.reducer;
 
 export const getUserName = (state:{user:initialStates})=>state.user.username;
 export const getUser = (state:{user:initialStates})=>state.user.user;
+export const getUserId = (state:{user:initialStates})=>state.user.user?.user_id;
 
 
 
