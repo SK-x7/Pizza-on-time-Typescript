@@ -44,6 +44,8 @@ function Layout() {
         if(user.username){
           dispatch(updateUser(user));
         }
+        console.log(window.location.href);
+        if(window.location.href==='http://localhost:5173/'||window.location.href==="http://localhost:5173/signup")  return navigate("/menu");
         return;
         // window.location.href = '/menu'; // Redirect if valid
       }

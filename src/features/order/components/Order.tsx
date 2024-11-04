@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import UpdateOrder from './UpdateOrder';
 import { itemInCart } from '../../cart/components/CartItem';
 import {MenuItem} from "../../menu/menuInterfaces"
+import { o } from './MyOrders';
 
 
 export interface orderInterface{
@@ -29,7 +30,7 @@ export interface orderInterface{
 
 
 function Order() {
-  const order = useLoaderData() as orderInterface;
+  const order = useLoaderData() as o;
   const fetcher = useFetcher();
   useEffect(function () {
     if(!fetcher.data&&fetcher.state==='idle') fetcher.load('/menu');
@@ -50,15 +51,22 @@ function Order() {
     orderPrice,
     estimatedDelivery,
     cart,
+    customer,
+    
   } = order;
 
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
 
   return (
-    <div className="space-y-8 px-4 py-6 w-full my-8 border-y-2 border-gray-300 p-3">
+    <div className='flex flex-col justify-center items-center border-y-2 border-gray-300 my-8 w-full divide-y-4'>
+    
+      <div className='w-full flex justify-center items-center !h-full py-5 font-mono'>
+        <span className='capitalize text-3xl'>Order id # {id}</span>
+      </div>
+    <div className="space-y-8 py-6 w-full ">
       <div className="flex flex-wrap items-center justify-between gap-2">
         {/* <h2 className="text-xl font-semibold">Order #{id} status</h2> */}
-        <h2 className="text-xl font-semibold">Order #{id} status</h2>
+        <h2 className="text-xl font-semibold">Customer name : {customer}</h2>
 
         <div className="space-x-2">
           {priority && (
@@ -83,7 +91,7 @@ function Order() {
         </p>
       </div>
 
-      <ul className="dive-stone-200 divide-y border-b border-t">
+      <ul className="dive-stone-200 divide-y border-b border-t px-3">
         {cart.map((item:itemInCart) => (
           <OrderItem item={item} key={item.pizzaId} 
           isLoadingIngredients={fetcher.state==='loading'}
@@ -93,18 +101,19 @@ function Order() {
 
       <div className="space-y-2 bg-stone-200 px-6 py-5">
         <p className="text-sm font-medium text-stone-600">
-          Price pizza: {formatCurrency(orderPrice-priorityPrice)}
+          Price pizza: {orderPrice&&priorityPrice&&formatCurrency(orderPrice-priorityPrice)}
         </p>
         {priority && (
           <p className="text-sm font-medium text-stone-600">
-            Price priority: {formatCurrency(priorityPrice)}
+            Price priority: {priorityPrice&&formatCurrency(priorityPrice)}
           </p>
         )}
         <p className="font-bold">
-          To pay on delivery: {formatCurrency(orderPrice)}
+          To pay on delivery: {orderPrice&&formatCurrency(orderPrice)}
         </p>
       </div>
       {!priority&&<UpdateOrder order={order}></UpdateOrder>}
+    </div>
     </div>
   );
 }

@@ -11,8 +11,14 @@ export default function Header() {
         <Link to="./">Pizza-On-Time Co.</Link>
         {/* <SearchBar ></SearchBar> */}
         <SearchOrder></SearchOrder>
-        {/* <span className="uppercase text-xs font-semibold">satyen</span> */}
-        <Username></Username>
+        <div className="flex gap-4  px-3">
+          
+        <Link className="uppercase text-sm font-semibold " to={'/me/orders'}>my orders</Link>
+        <span className="uppercase text-sm font-semibold">|</span>
+        <span className="uppercase text-sm font-semibold">satyen</span>
+        </div>
+        
+        {/* <Username></Username> */}
     </div>
   )
 }

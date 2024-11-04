@@ -1,15 +1,20 @@
 import React from 'react'
+import { toast } from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { fetchOrders } from '../../../apis/apiRestaurant';
+import store from '../../../store';
+import { getUserId } from '../../users/userSlice';
 import { newOrderInterface } from './CreateOrder';
 import { orderInterface } from './Order';
 
-interface o extends newOrderInterface{
+export interface o extends newOrderInterface{
     id:number;
     createdAt:Date;
 }
 
 export default function MyOrders() {
+    const userId=useSelector(getUserId);
     const navigate=useNavigate();
     function handleClick(id:number) {
         return navigate(`/order/${id}`);
@@ -52,6 +57,14 @@ export default function MyOrders() {
 }
 
 export async function fetchOrdersFromApi(){
-    const orders=await fetchOrders();
-    return orders;
+    const state=store.getState();
+    const user=state.user;
+    const id=user.user?.user_id;
+    if(id){
+        
+        const orders=await fetchOrders(id);
+        return orders;
+    }
+    else toast.error("error");
+    return;
 }

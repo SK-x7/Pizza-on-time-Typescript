@@ -68,8 +68,8 @@ export async function getOrder(id:string) {
 }
 
 
-export async function fetchOrders() {
-  let{data:orders,error}= await supabase.from("order").select('*');
+export async function fetchOrders(id:string) {
+  let{data:orders,error}= await supabase.from("order").select('*').eq("userId",id);
   if(error){
     toast.error(`Could not find orders`);
     console.log(error);
