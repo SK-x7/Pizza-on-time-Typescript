@@ -14,7 +14,6 @@ export interface o extends newOrderInterface{
 }
 
 export default function MyOrders() {
-    const userId=useSelector(getUserId);
     const navigate=useNavigate();
     function handleClick(id:number) {
         return navigate(`/order/${id}`);
@@ -22,6 +21,7 @@ export default function MyOrders() {
     
     
     const orders=useLoaderData() as o[];
+    
     console.log(orders);
   return (
     <div className='flex flex-col justify-center items-center gap-3 !w-full mt-1 bg-gray-200 px-3 pt-5'>
@@ -39,7 +39,7 @@ export default function MyOrders() {
         <div className='flex flex-col justify-center items-center !w-full gap-3'>
             
         {
-            orders.map((order)=>(
+            orders&&orders.map((order)=>(
                 <ul className='flex justify-center items-center gap-8 rounded-md !w-full flex-grow border-b-[1px] border-gray-300 py-1'>
             <span className='capitalize w-full flex justify-center items-center'>{order.id}</span>
             <span className='capitalize w-full flex justify-center items-center'>{new Date(order.estimatedDelivery).toLocaleString()}</span>
@@ -66,5 +66,5 @@ export async function fetchOrdersFromApi(){
         return orders;
     }
     else toast.error("error");
-    return;
+    return null;
 }
