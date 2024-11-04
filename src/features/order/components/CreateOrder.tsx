@@ -36,7 +36,7 @@ const isValidPhone = (str:string) =>
     priorityPrice?:number;
     status?:string;
     userId?:string;
-    estimatedDelivery?:Date;
+    estimatedDelivery:Date;
   }
   
   

@@ -12,6 +12,7 @@ import {action as signUpAction}  from './features/users/SignUp'
 import {action as loginAction}  from './features/users/LogIn'
 import Login from './features/users/LogIn';
 import SignUp from './features/users/SignUp';
+import MyOrders, { fetchOrdersFromApi } from './features/order/components/MyOrders';
 
 // Create the router with routes and loaders
 const router = createBrowserRouter([
@@ -59,8 +60,12 @@ const router = createBrowserRouter([
         loader:orderLoader,
         errorElement:<Error></Error>,
         action:updateOrderAction
-  
       },
+      {
+        path:"/me/orders",
+        element:<MyOrders/>,
+        loader:fetchOrdersFromApi,
+      }
     ],
   },
 ]);

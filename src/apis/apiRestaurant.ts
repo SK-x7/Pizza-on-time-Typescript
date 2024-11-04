@@ -68,6 +68,16 @@ export async function getOrder(id:string) {
 }
 
 
+export async function fetchOrders() {
+  let{data:orders,error}= await supabase.from("order").select('*');
+  if(error){
+    toast.error(`Could not find orders`);
+    console.log(error);
+    return;
+  }
+  return orders;
+}
+
 export async function createOrder(obj:newOrderInterface,totalCartPrice:number) {
   console.log(typeof obj.priority,obj.priority);
   const temp:newOrderInterface={

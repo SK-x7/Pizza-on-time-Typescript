@@ -64,7 +64,8 @@ function Layout() {
       <Header />
        <div className='overflow-scroll'>
         
-      <main className='max-w-3xl mx-auto '>
+      <main className='max-w-screen-lg mx-auto'>
+      {/* <main className='max-w-screen-lg mx-auto !flex justify-center items-center !bg-red-400'> */}
         <Outlet /> {/* This is where child routes (like Home or Menu) will be rendered */}
       </main>
        </div>
