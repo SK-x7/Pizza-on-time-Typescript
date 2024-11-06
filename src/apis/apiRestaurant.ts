@@ -115,6 +115,24 @@ export async function createOrder(obj:newOrderInterface,totalCartPrice:number) {
   }
 }
 
+export async function updateOrderStatus(orderId:number){
+  const {data,error}=await supabase
+  .from('order')
+  .update({ status: 'delivered' })
+  .eq('id', orderId).select("*");
+  if(error){
+    console.log(error.message);
+    return;
+  }
+  
+  console.log(data);
+  return data[0];
+  
+  
+}
+
+
+
 export async function updateOrder(id:string, updateObj:{priority:boolean}) {
   try {
     const res = await fetch(`${API_URL}/order/${id}`, {

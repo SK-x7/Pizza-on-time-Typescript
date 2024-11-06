@@ -3,7 +3,7 @@
 import OrderItem from './OrderItem';
 
 import { LoaderFunctionArgs, useFetcher, useLoaderData } from 'react-router-dom';
-import { getOrder } from '../../../apis/apiRestaurant';
+import { getOrder, supabase, updateOrderStatus } from '../../../apis/apiRestaurant';
 import {
   calcMinutesLeft,
   formatCurrency,
@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 import UpdateOrder from './UpdateOrder';
 import { itemInCart } from '../../cart/components/CartItem';
 import {MenuItem} from "../../menu/menuInterfaces"
-import { o } from './MyOrders';
+import { fetchOrdersFromApi, o } from './MyOrders';
 
 
 export interface orderInterface{
@@ -30,17 +30,38 @@ export interface orderInterface{
 
 
 function Order() {
-  const order = useLoaderData() as o;
+  let order = useLoaderData() as o;
   const fetcher = useFetcher();
   useEffect(function () {
     if(!fetcher.data&&fetcher.state==='idle') fetcher.load('/menu');
   },[fetcher])
   
   
-//   console.log()
 
   // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
 
+  if(!order) return;
+  
+  // useEffect(() => {
+  //   const checkOrders = async () => {
+  //     console.log("checking orders");
+  //     if (new Date(order.estimatedDelivery) < new Date() && order.status === 'preparing') {
+  //         // Send an update request to Supabase
+  //         console.log("inside if");
+  //         order=await updateOrderStatus(order.id);
+      
+  //   };
+    
+  // }
+  //   // Check orders every 5 minutes
+  //   const interval = setInterval(checkOrders, 5000);
+  
+  //   // Clean up interval on component unmount
+  //   return () => {
+  //     console.log("Interval clearnup");
+  //     clearInterval(interval)};
+  // }, []);
+  
   
   
   const {
@@ -54,7 +75,10 @@ function Order() {
     customer,
     
   } = order;
-
+  
+  
+  
+  if(!order) return;
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
 
   return (
@@ -122,6 +146,12 @@ export async function loader({ params }:LoaderFunctionArgs) {
   console.log(params.orderId);
   const order = await getOrder(params.orderId as string);
   console.log(order,"2️⃣");
+  if (new Date(order.estimatedDelivery) < new Date() && order.status === 'preparing') {
+    // Send an update request to Supabase
+    console.log("inside if");
+    return await updateOrderStatus(order.id);
+
+};
   
   return order;
 }

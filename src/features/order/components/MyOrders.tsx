@@ -33,7 +33,7 @@ export default function MyOrders() {
             <span className='capitalize w-full flex justify-center items-center '>Estimated delivery</span>
             <span className='capitalize w-full flex justify-center items-center'>Customer name</span>
             <span className='capitalize w-full flex justify-center items-center'>Total price</span>
-            <span className='capitalize w-full flex justify-center items-center'>order status</span>
+            {/* <span className='capitalize w-full flex justify-center items-center'>order status</span> */}
             <span className='capitalize w-full flex justify-center items-center'>view details</span>
         </div>
         <div className='flex flex-col justify-center items-center !w-full gap-3'>
@@ -45,7 +45,7 @@ export default function MyOrders() {
             <span className='capitalize w-full flex justify-center items-center'>{new Date(order.estimatedDelivery).toLocaleString()}</span>
             <span className='capitalize w-full flex justify-center items-center'>{order.customer}</span>
             <span className='capitalize w-full flex justify-center items-center'>{order.orderPrice}</span>
-            <span className='capitalize w-full flex justify-center items-center'>{order.status}</span>
+            {/* <span className='capitalize w-full flex justify-center items-center'>{order.status}</span> */}
             <button className='capitalize w-full text-blue-600 flex justify-center items-center' onClick={(e)=>{e.preventDefault();handleClick(order.id);}}>view details ➡️</button>
         </ul>
                 
