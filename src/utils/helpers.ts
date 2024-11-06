@@ -1,5 +1,8 @@
-export function formatCurrency(value:number) {
-  if(!value) value=0;
+export function formatCurrency(val1:number,val2:number=0):string|null {
+  // if(!value) value=0;  
+  const value=val1-val2;
+  console.log(value);
+  if(!value) return "";
      return new Intl.NumberFormat("en", {
       style: "currency",
       currency: "EUR",

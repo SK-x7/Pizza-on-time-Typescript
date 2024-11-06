@@ -14,6 +14,7 @@ import UpdateOrder from './UpdateOrder';
 import { itemInCart } from '../../cart/components/CartItem';
 import {MenuItem} from "../../menu/menuInterfaces"
 import { fetchOrdersFromApi, o } from './MyOrders';
+import { finalOrderInterface } from './CreateOrder';
 
 
 export interface orderInterface{
@@ -30,7 +31,7 @@ export interface orderInterface{
 
 
 function Order() {
-  let order = useLoaderData() as o;
+  let order = useLoaderData() as finalOrderInterface;
   const fetcher = useFetcher();
   useEffect(function () {
     if(!fetcher.data&&fetcher.state==='idle') fetcher.load('/menu');
@@ -76,7 +77,7 @@ function Order() {
     
   } = order;
   
-  
+  console.log(typeof priorityPrice,priorityPrice)
   
   if(!order) return null;
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
@@ -125,15 +126,16 @@ function Order() {
 
       <div className="space-y-2 bg-stone-200 px-6 py-5">
         <p className="text-sm font-medium text-stone-600">
-          Price pizza: {orderPrice&&priorityPrice&&formatCurrency(orderPrice-priorityPrice)}
+          Price pizza:{formatCurrency(orderPrice,priorityPrice)}
         </p>
         {priority && (
           <p className="text-sm font-medium text-stone-600">
-            Price priority: {priorityPrice&&formatCurrency(priorityPrice)}
+            Price priority: 
+             {formatCurrency(priorityPrice)}
           </p>
         )}
         <p className="font-bold">
-          To pay on delivery: {orderPrice&&formatCurrency(orderPrice)}
+          To pay on delivery: {formatCurrency(orderPrice)}
         </p>
       </div>
       {!priority&&<UpdateOrder order={order}></UpdateOrder>}

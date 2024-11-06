@@ -39,6 +39,23 @@ const isValidPhone = (str:string) =>
     estimatedDelivery:Date;
   }
   
+  export interface finalOrderInterface{
+    id:number;
+    createdAt:Date;
+    // data:FormDataEntryValue;
+    address:string;
+    cart:itemInCart[];
+    customer:string;
+    orderPrice:number;
+    phone:string|number;
+    position?:string;
+    priority:boolean;
+    priorityPrice:number;
+    status:string;
+    userId:string;
+    estimatedDelivery:Date;
+  }
+  
   
   function CreateOrder() {
     const dispatch = useDispatch<AppDispatch>();

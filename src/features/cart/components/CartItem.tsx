@@ -19,6 +19,7 @@ export interface itemInCart{
     quantity:number
     unitPrice:number;
     totalPrice:number;
+    ingredients:string[];
 }
 
 

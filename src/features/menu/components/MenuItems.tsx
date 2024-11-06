@@ -10,10 +10,11 @@ import CustomizeOrder from "./CustomizeOrder";
 
 
 export interface MenuItemsProps {
-  pizza: MenuItem
+  pizza: MenuItem;
+  onCustomizeClick:(pizza: MenuItem) => void;
 }
 
-function MenuItems({pizza}:MenuItemsProps) {
+function MenuItems({pizza,onCustomizeClick}:MenuItemsProps) {
   
   const {isRegularModalOpen,toggleModel}=useUiContext();
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
@@ -29,6 +30,7 @@ function MenuItems({pizza}:MenuItemsProps) {
       name,
       quantity:1,
       unitPrice,
+      ingredients,
       totalPrice:unitPrice*1,
   }
   dispatch(addItem(newItem));
@@ -40,7 +42,7 @@ function MenuItems({pizza}:MenuItemsProps) {
 
   return (
     <li className="flex gap-4 py-2 items-center">
-              {isRegularModalOpen&&<RegularModal onClose={toggleModel}><CustomizeOrder allIngredients={pizza.allIngredients} ingredients={ingredients}></CustomizeOrder></RegularModal>}
+              {/* {isRegularModalOpen&&<RegularModal onClose={toggleModel}><CustomizeOrder id={pizza.id} allIngredients={pizza.allIngredients} ingredients={ingredients}></CustomizeOrder></RegularModal>} */}
 
       <img
         src={imageUrl}
@@ -67,7 +69,7 @@ function MenuItems({pizza}:MenuItemsProps) {
           
           {isInCart&&
           <div className='flex items-center gap-3 sm:gap-8'>
-            <Button type="small" onClick={toggleModel}>Customize</Button>
+            <Button type="small" onClick={()=>onCustomizeClick(pizza)}>Customize</Button>
             <UpdateItemQuantity pizzaId={id} currentQuantity={currentQuantity}></UpdateItemQuantity>
           
           <DeleteItem pizzaId={id}></DeleteItem>

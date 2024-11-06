@@ -1,13 +1,46 @@
-import React from 'react'
+import { ResultType } from '@remix-run/router/dist/utils';
+import React, { ChangeEvent, FormEvent, useState } from 'react'
+import { toast } from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { useUiContext } from '../../../contexts/UiContexts';
 import Button from '../../../UiComponents/Button'
+import { getCart, updateIngredientsOfItem } from '../../cart/cartSlice';
 
-export default function CustomizeOrder({allIngredients,ingredients}:{allIngredients:string[],ingredients:string[]}) {
+export default function CustomizeOrder({allIngredients,ingredients,id}:{allIngredients:string[],ingredients:string[],id:number}) {
+    console.log(id);
+    const {toggleModel}=useUiContext();
+    const dispatch=useDispatch();
+    const [addRemoveIngredients,setAddRemoveIngredients]=useState<string[]>(ingredients);
+    function handleSubmit(e:FormEvent) {
+        e.preventDefault();
+        console.log(addRemoveIngredients);
+        if(addRemoveIngredients.length<2){
+            toast.error("Atleast two ingredients must be specified");
+            return;
+        }
+        console.log(id);
+        // console.log(formdata.values);
+        dispatch(updateIngredientsOfItem({id,addRemoveIngredients}));
+        console.log("submiteddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
+    }
+    
+    function handleChange(e:ChangeEvent<HTMLInputElement>) {
+        // e.preventDefault();
+        if(!addRemoveIngredients.includes(e.target.value))
+        setAddRemoveIngredients([...addRemoveIngredients,e.target.value]);
+        // addRemoveIngredients.push(e.target.value);
+        else {
+            setAddRemoveIngredients(addRemoveIngredients.filter(ingredient => ingredient !== e.target.value));
+        }
+        console.log("changed",addRemoveIngredients);    
+    }
+    
   return (
     <div className=' max-w-screen-sm w-80 flex flex-col h-96 justify-between'>
         <h1 className='h-1/6 flex justify-center items-center text-lg bg-yellow-400 rounded-lg capitalize'>Customize all Ingredients</h1>
         {/* <div className='flex flex-col justify-start items-center'> */}
             {/* <h2>allIngredients</h2> */}
-            <form className='flex flex-col h-5/6 w-full gap-2 justify-between'>
+            <form onSubmit={handleSubmit} className='flex flex-col h-5/6 w-full gap-2 justify-between'>
                     <div className='overflow-y-scroll overflow-x-hidden h-[90%] w-full bg-slate-300 rounded-xl px-1 divide-y-2 mt-2'>
                 {
                         
@@ -24,7 +57,9 @@ export default function CustomizeOrder({allIngredients,ingredients}:{allIngredie
                           name="priority"
                           id="priority"
                           value={ingredient}
-                          checked={ingredients.includes(ingredient)}
+                          defaultChecked={ingredients.includes(ingredient)}
+                          
+                          onChange={handleChange}
                           //   onChange={(e) => setWithPriority(e.target.checked)}
                           />
                       </div>
@@ -32,8 +67,8 @@ export default function CustomizeOrder({allIngredients,ingredients}:{allIngredie
                     ))
                 }
                           </div>
-                          <div className='h-[10%] flex justify-end'>
-                            <Button type='small'>Cancel</Button>
+                          <div className='h-[10%] flex justify-end gap-1'>
+                            <Button type='small' onClick={()=>{setAddRemoveIngredients([]); toggleModel();}}>Cancel</Button>
                             <Button type='small'>Save</Button>
                           </div>
             </form>

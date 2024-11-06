@@ -29,6 +29,14 @@ const cartSlice =createSlice({
             state.cart.push(action.payload);
             state.cartPrice+=action.payload.totalPrice;
         },
+        updateIngredientsOfItem(state,action){
+            console.log(action.payload);
+            
+          if(!action.payload.id)    return;
+          const itemToUpdate=state.cart.find((item)=>item.pizzaId===action.payload.id);
+          if(itemToUpdate)  itemToUpdate.ingredients=action.payload.addRemoveIngredients;  
+          
+        },
         
         deleteItem(state,action){
             // const itemToDelete=state.cart.find(item=>item.pizzaId==action.payload);
@@ -77,7 +85,7 @@ const cartSlice =createSlice({
     }
 })
 
-export const{addItem,deleteItem,increaseItemQuantity,decreaseItemQuantity,clearCart} =cartSlice.actions;
+export const{addItem,deleteItem,increaseItemQuantity,decreaseItemQuantity,clearCart,updateIngredientsOfItem} =cartSlice.actions;
 
 
 export const getCart = (state:{cart:cartIntitialState})=>state.cart.cart;
