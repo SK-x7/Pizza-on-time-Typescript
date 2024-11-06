@@ -4,15 +4,19 @@ import { MenuItem } from "../menuInterfaces";
 import Button from "../../../UiComponents/Button";
 import {useDispatch,useSelector} from "react-redux"
 import { addItem, getCurrentCartQuantityById } from "../../cart/cartSlice";
+import { useUiContext } from "../../../contexts/UiContexts";
+import RegularModal from "../../../UiComponents/RegularModal";
+import CustomizeOrder from "./CustomizeOrder";
 
 
-interface MenuItemsProps {
+export interface MenuItemsProps {
   pizza: MenuItem
 }
 
 function MenuItems({pizza}:MenuItemsProps) {
-  const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
   
+  const {isRegularModalOpen,toggleModel}=useUiContext();
+  const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
   
   const dispatch =useDispatch();
   const currentQuantity = useSelector(getCurrentCartQuantityById(id));
@@ -36,6 +40,8 @@ function MenuItems({pizza}:MenuItemsProps) {
 
   return (
     <li className="flex gap-4 py-2 items-center">
+              {isRegularModalOpen&&<RegularModal onClose={toggleModel}><CustomizeOrder allIngredients={pizza.allIngredients} ingredients={ingredients}></CustomizeOrder></RegularModal>}
+
       <img
         src={imageUrl}
         alt={name}
@@ -55,8 +61,13 @@ function MenuItems({pizza}:MenuItemsProps) {
             </p>
           )}
           
+          
+          {/* {isInCart&&
+          } */}
+          
           {isInCart&&
           <div className='flex items-center gap-3 sm:gap-8'>
+            <Button type="small" onClick={toggleModel}>Customize</Button>
             <UpdateItemQuantity pizzaId={id} currentQuantity={currentQuantity}></UpdateItemQuantity>
           
           <DeleteItem pizzaId={id}></DeleteItem>

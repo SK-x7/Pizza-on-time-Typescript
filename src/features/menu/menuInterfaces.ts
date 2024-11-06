@@ -6,7 +6,7 @@ export interface MenuItem{
     name:string;
     soldOut:boolean;
     unitPrice:number;
-    allIngredients?: string[];
+    allIngredients: string[];
     
   }
   
