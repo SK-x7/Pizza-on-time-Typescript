@@ -40,7 +40,7 @@ function Order() {
 
   // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
 
-  if(!order) return;
+  if(!order) return null;
   
   // useEffect(() => {
   //   const checkOrders = async () => {
@@ -78,7 +78,7 @@ function Order() {
   
   
   
-  if(!order) return;
+  if(!order) return null;
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
 
   return (

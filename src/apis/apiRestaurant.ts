@@ -122,7 +122,7 @@ export async function updateOrderStatus(orderId:number){
   .eq('id', orderId).select("*");
   if(error){
     console.log(error.message);
-    return;
+    return null;
   }
   
   console.log(data);
