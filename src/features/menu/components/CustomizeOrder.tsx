@@ -21,6 +21,8 @@ export default function CustomizeOrder({allIngredients,ingredients,id}:{allIngre
         console.log(id);
         // console.log(formdata.values);
         dispatch(updateIngredientsOfItem({id,addRemoveIngredients}));
+        setAddRemoveIngredients([]);
+        toggleModel();
         console.log("submiteddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
     }
     

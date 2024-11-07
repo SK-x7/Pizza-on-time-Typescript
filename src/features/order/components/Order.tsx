@@ -120,7 +120,7 @@ function Order() {
         {cart.map((item:itemInCart) => (
           <OrderItem item={item} key={item.pizzaId} 
           isLoadingIngredients={fetcher.state==='loading'}
-          ingredients={fetcher?.data?.find((el:MenuItem)=>el?.id===item.pizzaId)?.ingredients??[]} />
+          ingredients={item.ingredients} />
         ))}
       </ul>
 
@@ -151,9 +151,19 @@ export async function loader({ params }:LoaderFunctionArgs) {
   if (new Date(order.estimatedDelivery) < new Date() && order.status === 'preparing') {
     // Send an update request to Supabase
     console.log("inside if");
-    return await updateOrderStatus(order.id);
+    return await updateOrderStatus(order.id,"Delivered");
 
 };
+
+  const currentTime=new Date();
+  const estimatedDeliveryTime = new Date(order.estimatedDelivery);
+  const orderCreationTime=new Date(order.created_at);
+  const halfTimeInterval = (estimatedDeliveryTime.getTime() - orderCreationTime.getTime()) / 2;
+  if (currentTime.getTime()  >= halfTimeInterval && order.status === 'preparing') {
+    // Send an update request to Supabase
+    console.log("Updating order status based on time conditions");
+    return await updateOrderStatus(order.id,"Dispatched");
+}
   
   return order;
 }
