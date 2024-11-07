@@ -41,7 +41,7 @@ const isValidPhone = (str:string) =>
   
   export interface finalOrderInterface{
     id:number;
-    createdAt:Date;
+    created_at:Date;
     // data:FormDataEntryValue;
     address:string;
     cart:itemInCart[];
@@ -81,7 +81,7 @@ const isValidPhone = (str:string) =>
       e.preventDefault();
       const formElement=e.target as HTMLFormElement;
       const formData=new FormData(formElement);
-      const estimatedDelivery=getEstimatedDeliveryTime(30,60);
+      const estimatedDelivery=getEstimatedDeliveryTime(3,5);
       const data:newOrderInterface={
         customer: formData.get('customer') as string,
         phone: formData.get('phone') as string,

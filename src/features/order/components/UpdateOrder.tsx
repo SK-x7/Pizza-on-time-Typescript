@@ -1,11 +1,12 @@
 import { ActionFunctionArgs, useFetcher } from "react-router-dom"
 import { updateOrder } from "../../../apis/apiRestaurant";
 import Button from "../../../UiComponents/Button"
+import { finalOrderInterface } from "./CreateOrder";
 import { o } from "./MyOrders";
 import { orderInterface } from "./Order";
 
 interface UpdateOrderProps {
-    order: o;
+    order: finalOrderInterface;
   }
 function UpdateOrder({order}:UpdateOrderProps) {
     const fetcher =useFetcher();

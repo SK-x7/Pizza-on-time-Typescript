@@ -15,6 +15,7 @@ import { itemInCart } from '../../cart/components/CartItem';
 import {MenuItem} from "../../menu/menuInterfaces"
 import { fetchOrdersFromApi, o } from './MyOrders';
 import { finalOrderInterface } from './CreateOrder';
+import CancelOrder from '../../cart/components/CancelOrder';
 
 
 export interface orderInterface{
@@ -83,7 +84,8 @@ function Order() {
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
 
   return (
-    <div className='flex flex-col justify-center items-center border-y-2 border-gray-300 my-8 w-full divide-y-4'>
+    <div className='flex flex-col justify-center items-center'>
+    <div className='flex flex-col justify-center items-center border-y-2 border-gray-300 mt-8 mb-1 w-full divide-y-4'>
     
       <div className='w-full flex justify-center items-center !h-full py-5 font-mono'>
         <span className='capitalize text-3xl'>Order id # {id}</span>
@@ -100,7 +102,7 @@ function Order() {
             </span>
           )}
           <span className="rounded-full bg-green-500 px-3 py-1 text-sm font-semibold uppercase tracking-wide text-green-50">
-            {status} order
+            {status}
           </span>
         </div>
       </div>
@@ -138,9 +140,17 @@ function Order() {
           To pay on delivery: {formatCurrency(orderPrice)}
         </p>
       </div>
+      <div className='flex gap-2 justify-end items-center px-2'>
+        
+          
+        <CancelOrder order={order}/>
       {!priority&&<UpdateOrder order={order}></UpdateOrder>}
+  
+      </div>
     </div>
     </div>
+        <span  className=' text-red-700 font-semibold'>Note : You can only set priority and cancel order before the order is dispatched . These actions are non-reversible.</span>
+        </div>
   );
 }
 
@@ -148,7 +158,7 @@ export async function loader({ params }:LoaderFunctionArgs) {
   console.log(params.orderId);
   const order = await getOrder(params.orderId as string);
   console.log(order,"2️⃣");
-  if (new Date(order.estimatedDelivery) < new Date() && order.status === 'preparing') {
+  if (new Date(order.estimatedDelivery) < new Date() && order.status !== 'Delivered') {
     // Send an update request to Supabase
     console.log("inside if");
     return await updateOrderStatus(order.id,"Delivered");
@@ -158,7 +168,7 @@ export async function loader({ params }:LoaderFunctionArgs) {
   const currentTime=new Date();
   const estimatedDeliveryTime = new Date(order.estimatedDelivery);
   const orderCreationTime=new Date(order.created_at);
-  const halfTimeInterval = (estimatedDeliveryTime.getTime() - orderCreationTime.getTime()) / 2;
+  const halfTimeInterval = orderCreationTime.getTime()+(estimatedDeliveryTime.getTime() - orderCreationTime.getTime()) / 2;
   if (currentTime.getTime()  >= halfTimeInterval && order.status === 'preparing') {
     // Send an update request to Supabase
     console.log("Updating order status based on time conditions");

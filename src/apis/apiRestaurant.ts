@@ -115,16 +115,17 @@ export async function createOrder(obj:newOrderInterface,totalCartPrice:number) {
   }
 }
 
-export async function updateOrderStatus(orderId:number,status:"Delivered"|"Dispatched" ){
+export async function updateOrderStatus(orderId:number,status:"Delivered"|"Dispatched"|"Cancelled" ){
   const {data,error}=await supabase
   .from('order')
   .update({ status: status })
   .eq('id', orderId).select("*");
   if(error){
+    toast.error(error.message);
     console.log(error.message);
     return null;
   }
-  
+  toast.success(`Order status updated to : ${status}`);
   console.log(data);
   return data[0];
   
