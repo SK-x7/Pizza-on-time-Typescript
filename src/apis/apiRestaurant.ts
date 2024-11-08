@@ -4,7 +4,7 @@ let SUPABASE_API_KEY = import.meta.env.VITE_SUPABASE_APIKEY;
 
 
 import { MenuItem } from "../features/menu/menuInterfaces";
-import { newOrderInterface } from "../features/order/components/CreateOrder";
+import { finalOrderInterface, newOrderInterface } from "../features/order/components/CreateOrder";
 import { createClient } from '@supabase/supabase-js'
 import { useSelector } from "react-redux";
 import { clearCart, getTotalCartPrice } from "../features/cart/cartSlice";
@@ -13,6 +13,8 @@ import { getEstimatedDeliveryTime } from "../utils/helpers";
 import { toast } from "react-hot-toast";
 import store from "../store";
 import { Navigate, redirect } from "react-router-dom";
+import { o } from "../features/order/components/MyOrders";
+import { itemInCart } from "../features/cart/components/CartItem";
 
 
 
@@ -132,20 +134,38 @@ export async function updateOrderStatus(orderId:number,status:"Delivered"|"Dispa
   
 }
 
+interface updateOrder{
+  
+  
+  id?:number;
+  created_at?:Date;
+  // data:FormDataEntryValue;
+  address?:string;
+cart?:itemInCart[];
+customer?:string;
+orderPrice?:number;
+phone?:string|number;
+position?:string;
+priority?:boolean;
+priorityPrice?:number;
+status?:string;
+userId?:string;
+estimatedDelivery?:Date;
+}
 
-
-export async function updateOrder(id:string, updateObj:{priority:boolean}) {
+export async function updateOrder(orderId:number, updateObj:updateOrder) {
   try {
-    const res = await fetch(`${API_URL}/order/${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(updateObj),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!res.ok) throw Error();
-    // We don't need the data, so we don't return anything
+    const {data,error}=await supabase.from("order").update(updateObj).eq("id",orderId).select("*");
+    if(error){
+      console.log(error);
+      toast.error(error.message);
+      return null;
+    }
+    toast.success(`Order priority updated`);
+    console.log(data);
+    return data[0];
+    
+    
   } catch (err) {
     throw Error('Failed updating your order');
   }
