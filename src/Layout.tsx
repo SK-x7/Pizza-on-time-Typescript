@@ -1,11 +1,10 @@
-import { UserIdentity } from '@supabase/supabase-js';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { json, Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { supabase } from './apis/apiRestaurant';
 import CartOverview from './features/cart/components/CartOverview';
-import { updateName, updateUser } from './features/users/userSlice';
+import { updateUser } from './features/users/userSlice';
 import Header from './UiComponents/Header';
 
 
@@ -20,6 +19,7 @@ interface UserInterface {
 function Layout() {
   const navigate=useNavigate();
   const dispatch=useDispatch();
+  const location=useLocation();
   async function checkUserSession() {
     const session = localStorage.getItem('supabaseSession');
     const currentSession = session ? JSON.parse(session) : null;
@@ -57,10 +57,23 @@ function Layout() {
   }
   
   useEffect(() => {
-    checkUserSession();
+    
+    // checkUserSession();
+    // ANCHOR - 
+    const session = localStorage.getItem('supabaseSession');
+    const currentSession = session ? JSON.parse(session) : null;
+
+    if (currentSession && window.location.pathname === "/") {
+      console.log("889556889678967987486778679479749764796947769479674797498769476794698747648796776",window.location.pathname)
+      navigate("/menu");
+      console.log("889556889678967987486778679479749764796947769479674797498769")
+    } else {
+      console.log("==================================================================================================================")
+      checkUserSession();
+    }
   
   
-  }, [])
+  }, [location.pathname])
   return (
     <div className='h-screen grid grid-rows-[auto_1fr_auto]'>
       <Header />
