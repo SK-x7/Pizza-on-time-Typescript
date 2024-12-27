@@ -8,11 +8,8 @@ import { MenuItem } from "../menuInterfaces.js";
 import CustomizeOrder from "./CustomizeOrder";
 import MenuItems from "./MenuItems.js";
 
-
-
-
 export default function Menu() {
-    const {toggleModel,setSelectedPizza,isRegularModalOpen,selectedPizza}=useUiContext();
+      const {toggleModel,setSelectedPizza,isRegularModalOpen,selectedPizza}=useUiContext();
     // const [selectedPizza, setSelectedPizza] = useState<MenuItem | null>(null);
   
     const menu = useLoaderData() as MenuItem[];  //the data we fetched from our api before moving  to this route

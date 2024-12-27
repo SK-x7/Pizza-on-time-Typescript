@@ -12,12 +12,12 @@ export default function Header() {
         <SearchOrder></SearchOrder>
         <div className="flex gap-4  px-3">
           {
-            (location.pathname==="/menu"||location.pathname!=="/me/orders")&&
+            (location.pathname==="/menu")&&
             
         <Link className="uppercase text-sm font-semibold " to={'/me/orders'}>my orders</Link>
           }
           {
-            location.pathname==="/me/orders"&&
+            (location.pathname==="/me/orders"||location.pathname==="/"||location.pathname==="/signup")&&
             
         <Link className="uppercase text-sm font-semibold " to={'/menu'}>Menu</Link>
           }

@@ -11,7 +11,7 @@ import {action as signUpAction}  from './features/users/SignUp'
 import {action as loginAction}  from './features/users/LogIn'
 import Login from './features/users/LogIn';
 import SignUp from './features/users/SignUp';
-import MyOrders, { fetchOrdersFromApi } from './features/order/components/MyOrders';
+import MyOrders from './features/order/components/MyOrders';
 import { UiProvider } from './contexts/UiContexts';
 
 // Create the router with routes and loaders
@@ -63,7 +63,6 @@ const router = createBrowserRouter([
       {
         path:"/me/orders",
         element:<MyOrders/>,
-        loader:fetchOrdersFromApi,
         errorElement:<Error></Error>,
       }
     ],

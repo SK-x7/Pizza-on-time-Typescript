@@ -43,6 +43,7 @@ function Layout() {
         const user:UserInterface=users&&users[0];
         if(user.username){
           dispatch(updateUser(user));
+          localStorage.setItem("user_id",user.user_id);
         }
         console.log(window.location.href);
         if(window.location.href==='http://localhost:5173/'||window.location.href==="http://localhost:5173/signup")  return navigate("/menu");
@@ -58,19 +59,11 @@ function Layout() {
   
   useEffect(() => {
     
-    // checkUserSession();
     // ANCHOR - 
-    const session = localStorage.getItem('supabaseSession');
-    const currentSession = session ? JSON.parse(session) : null;
+    // const session = localStorage.getItem('supabaseSession');
+    // const currentSession = session ? JSON.parse(session) : null;
+    checkUserSession();
 
-    if (currentSession && window.location.pathname === "/") {
-      console.log("889556889678967987486778679479749764796947769479674797498769476794698747648796776",window.location.pathname)
-      navigate("/menu");
-      console.log("889556889678967987486778679479749764796947769479674797498769")
-    } else {
-      console.log("==================================================================================================================")
-      checkUserSession();
-    }
   
   
   }, [location.pathname])

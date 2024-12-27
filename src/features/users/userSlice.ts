@@ -32,7 +32,7 @@ interface user{
   readonly username?:string;  
 }
 
-interface initialStates{
+export interface initialUserState{
   user?:user;
     username?: string;
     status?: string;
@@ -44,7 +44,7 @@ interface initialStates{
     error:string;
 }
 
-const initialState:initialStates ={
+const initialState:initialUserState ={
   user:{},
   username:'',
   status:'idle',
@@ -77,9 +77,9 @@ export const {updateName,updateUser} = userSlice.actions;
 
 export default userSlice.reducer;
 
-export const getUserName = (state:{user:initialStates})=>state.user.username;
-export const getUser = (state:{user:initialStates})=>state.user.user;
-export const getUserId = (state:{user:initialStates})=>state.user.user?.user_id;
+export const getUserName = (state:{user:initialUserState})=>state.user.username;
+export const getUser = (state:{user:initialUserState})=>state.user.user;
+export const getUserId = (state:{user:initialUserState})=>state.user.user?.user_id;
 
 
 

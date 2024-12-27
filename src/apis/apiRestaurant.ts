@@ -117,7 +117,7 @@ export async function createOrder(obj:newOrderInterface,totalCartPrice:number) {
   }
 }
 
-export async function updateOrderStatus(orderId:number,status:"Delivered"|"Dispatched"|"Cancelled" ){
+export async function updateOrderStatus(orderId:number,status:"delivered"|"dispatched"|"cancelled"){
   const {data,error}=await supabase
   .from('order')
   .update({ status: status })

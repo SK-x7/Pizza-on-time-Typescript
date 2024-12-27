@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 import UpdateOrder from './UpdateOrder';
 import { itemInCart } from '../../cart/components/CartItem';
 import {MenuItem} from "../../menu/menuInterfaces"
-import { fetchOrdersFromApi, o } from './MyOrders';
+import { o } from './MyOrders';
 import { finalOrderInterface } from './CreateOrder';
 import CancelOrder from '../../cart/components/CancelOrder';
 
@@ -158,10 +158,10 @@ export async function loader({ params }:LoaderFunctionArgs) {
   console.log(params.orderId);
   const order = await getOrder(params.orderId as string);
   console.log(order,"2️⃣");
-  if (new Date(order.estimatedDelivery) < new Date() && order.status !== 'Delivered') {
+  if (new Date(order.estimatedDelivery) < new Date() && order.status !== 'delivered') {
     // Send an update request to Supabase
     console.log("inside if");
-    return await updateOrderStatus(order.id,"Delivered");
+    return await updateOrderStatus(order.id,"delivered");
 
 };
 
@@ -172,7 +172,7 @@ export async function loader({ params }:LoaderFunctionArgs) {
   if (currentTime.getTime()  >= halfTimeInterval && order.status === 'preparing') {
     // Send an update request to Supabase
     console.log("Updating order status based on time conditions");
-    return await updateOrderStatus(order.id,"Dispatched");
+    return await updateOrderStatus(order.id,"dispatched");
 }
   
   return order;
