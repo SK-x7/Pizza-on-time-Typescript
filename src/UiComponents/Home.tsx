@@ -24,11 +24,11 @@ function Home() {
           
         Straight out of the oven, straight to you.
         </span>
-        <span className="text-green-600 text-sm font-semibold text-left w-1/2 mb-1">
+        <span className="text-green-600 text-sm font-semibold text-left w-2/3 mb-1">
           
         "Craving pizza? [Your Website Name] brings fresh, hot, and delicious pizzas right to your door. Customize your favorite flavors and enjoy fast delivery with just a few clicks. Your perfect slice is just an order away!"
         </span>
-        <hr className="font-extrabold bg-green-600 h-[3px] w-1/2 "/>
+        <hr className="font-extrabold bg-green-600 h-[3px] w-2/3 "/>
         </div>
         
         
@@ -43,7 +43,7 @@ function Home() {
     </div>
       <div className="w-full h-full flex justify-end">
         
-      <img src="../../public/76745d89868413.5e04311b1b5f4-removebg-preview.png"/>
+      <img className="object-cover" src="../../public/76745d89868413.5e04311b1b5f4-removebg-preview.png"/>
       </div>
       </div>
       

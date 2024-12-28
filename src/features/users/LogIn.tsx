@@ -39,35 +39,55 @@ const isValidPhone = (str:string) =>
 
   function Login() {
     return (
-    <div className="sm:px-4 xl:px-7 py-6 min-w-72 ring-1 ring-neutral-400 border-none  xl:w-[25vw] rounded-lg flex flex-col gap-8">
-        <div className=' flex flex-col gap-3'>
+      <div className='flex !w-full h-full border'>
+        <div className="w-1/2  items-center pt-16 pb-3  border-none flex flex-col gap-5">
+        <div className=' flex flex-col gap-3 justify-start items-start w-3/4'>
             
-      <h2 className="text-3xl font-semibold capitalize text-green-500">Welcome Back ‼️</h2>
-      <h2 className="text-2xl font-semibold capitalize text-green-500">Log In</h2>
+      <h1 className='capitalize text-4xl !text-left text-green-600 font-bold'>welcome to pizza-on-time co.</h1>
+          <p className='text-left text-base w-3/4 text-green-600 font-semibold'>"Craving pizza? [Your Website Name] brings fresh, hot, and delicious pizzas right to your door. Customize your favorite flavors and enjoy fast delivery with just a few clicks. Your perfect slice is just an order away!"</p>
+          <hr className="font-extrabold bg-green-600 h-[3px] w-3/4 "/>
+       
         </div>
 
 
       {/* <Form method="POST" action="/order/new"> */}
-      <Form method="POST" className='flex flex-col justify-center'>
-
-      <div className="flex mb-5 !flex-col gap-3 items-start justify-center w-full">
-          <label className="capitalize">Enter your Email :</label>
-          <input className="input grow p-2 ring-1 ring-neutral-400 w-full  rounded-xl" type="email" name="email" required placeholder='Enter your email'/>
-        </div>
-        <div className="flex mb-5 !flex-col gap-0 items-start justify-center w-full">
-          <label className="capitalize">Enter your password :</label>
-          <input className="input grow p-2 ring-1 ring-neutral-400 w-full  rounded-xl" type="password" name="password" required placeholder='Enter Password'/>
-        </div>
-
-        <Button  type="primary" >
-            Log-in now
-          </Button>
-      <div className=" mt-5 flex justify-center text-xs text-green-600 font-semibold">
-          {/* <label className="sm:basis-40">Email :</label> */}
-            <Link to="/signup" className='underline underline-offset-2'>Don't have an account ?</Link>
-        </div>
+      <div className='flex flex-1 w-3/4'>
         
-      </Form>
+      <Form method="POST" className='flex w-3/4  px-5 ring-1 ring-green-600 flex-col justify-evenly  border rounded-xl'>
+        <h1 className='capitalize text-xl font-semibold text-green-600'>Welcome back👋😄</h1>
+<div className="flex !flex-col gap-4 items-start justify-center w-full">
+  <div className='flex !flex-col items-start justify-evenly w-full'>
+    <label className="capitalize text-left grow py-2 w-full text-lg text-green-600 font-semibold">Enter your Email :</label>
+    <input className="input grow p-2 ring-1 ring-green-400 w-full  rounded-xl" type="email" name="email" required placeholder='Enter your email'/>
+  </div>
+  <div className="flex !flex-col gap-1 items-start justify-center w-full">
+    <label className="capitalize text-left grow py-2  w-full  rounded-xl text-green-600 text-lg font-semibold">Enter your password :</label>
+    <input className="input  grow p-2 ring-1 ring-green-400 w-full  rounded-xl" type="password" name="password" required placeholder='Enter Password'/>
+  </div>
+  </div>
+
+  <Button  type="primary" >
+      Log-in now
+    </Button>
+<div className=" mt-0 flex justify-center text-xs text-green-600 font-semibold">
+    {/* <label className="sm:basis-40">Email :</label> */}
+      <Link to="/signup" className='underline underline-offset-2'>Don't have an account ?</Link>
+  </div>
+  
+</Form>
+      </div>
+      
+    </div>
+    
+    
+    
+    <div className={`flex w-1/2`}>
+        {/* <div className={`flex flex-col w-2/3 items-center py-6 justify-start gap-2 px-auto`}> */}
+          {/* <h1 className='capitalize text-4xl'>welcome to pizza-on-time co.</h1>
+          <p className='text-left text-base w-3/4'>"Craving pizza? [Your Website Name] brings fresh, hot, and delicious pizzas right to your door. Customize your favorite flavors and enjoy fast delivery with just a few clicks. Your perfect slice is just an order away!"</p>
+        */}
+        <img className='object-cover' src='../../../public/76745d89868413.5e04311b1b5f4-removebg-preview.png'/>
+        </div> 
     </div>
   );
 }
