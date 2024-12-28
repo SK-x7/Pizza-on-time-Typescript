@@ -75,6 +75,7 @@ export default function MyOrders() {
         return navigate(`/order/${id}`);
     }
     
+    
     if(!orders) return <>Loading.........</>
     
     
@@ -93,7 +94,7 @@ export default function MyOrders() {
             <span className='capitalize w-full flex justify-center items-center'>Order Id</span>
             <span className='capitalize w-full col-span-2 flex justify-center items-center '>Estimated delivery</span>
             <span className='capitalize w-full flex justify-center items-center'>Customer name</span>
-            <span className='capitalize w-full flex justify-center items-center'>Order priority</span>
+            <span className='capitalize w-full flex justify-center items-center'>No. of Pizza</span>
             <span className='capitalize w-full flex justify-center items-center'>Total price</span>
             {/* <span className='capitalize w-full flex justify-center items-center'>order status</span> */}
             <span className='capitalize w-full flex justify-center items-center'>view details</span>
@@ -108,7 +109,7 @@ export default function MyOrders() {
             <span className='capitalize w-full flex justify-center items-center'>{order.id}</span>
             <span className='capitalize w-full col-span-2 flex justify-center items-center '>{new Date(order.estimatedDelivery).toLocaleString()}</span>
             <span className='capitalize w-full flex justify-center items-center '>{order.customer}</span>
-            <span className='capitalize w-full flex justify-center items-center '>{order.priority?"True":"False"}</span>
+            <span className='capitalize w-full flex justify-center items-center '>{order.cart.length}</span>
             <span className='capitalize w-full flex justify-center items-center'>{order.orderPrice}</span>
             {/* <span className='capitalize w-full flex justify-center items-center'>{order.status}</span> */}
             <button className='capitalize w-full text-blue-600 flex justify-center items-center' onClick={(e)=>{e.preventDefault();handleClick(order.id);}}>view details ➡️</button>

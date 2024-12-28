@@ -19,7 +19,7 @@ interface UserInterface {
 function Layout() {
   const navigate=useNavigate();
   const dispatch=useDispatch();
-  const location=useLocation();
+  const location = useLocation();
   async function checkUserSession() {
     const session = localStorage.getItem('supabaseSession');
     const currentSession = session ? JSON.parse(session) : null;
@@ -46,12 +46,14 @@ function Layout() {
           localStorage.setItem("user_id",user.user_id);
         }
         console.log(window.location.href);
-        if(window.location.href==='http://localhost:5173/'||window.location.href==="http://localhost:5173/signup")  return navigate("/menu");
+        if(window.location.href==='http://localhost:5173/'||window.location.href==="http://localhost:5173/signup")  return navigate("/");
         return;
         // window.location.href = '/menu'; // Redirect if valid
       }
     } else {
       localStorage.removeItem('supabaseSession');
+      console.log(window.location.href,window.location.href)
+      if(location.pathname === '/login'||location.pathname === '/signup'||location.pathname==="/") return null;
       return navigate("/");
       window.location.href = '/login'; // No session found, redirect to login
     }
@@ -60,26 +62,26 @@ function Layout() {
   useEffect(() => {
     
     // ANCHOR - 
-    // const session = localStorage.getItem('supabaseSession');
-    // const currentSession = session ? JSON.parse(session) : null;
     checkUserSession();
-
-  
-  
   }, [location.pathname])
+
   return (
-    <div className='h-screen grid grid-rows-[auto_1fr_auto]'>
-      <Header />
-       <div className='overflow-scroll'>
+    <Outlet /> 
+    );
+    {/* This is where child routes (like Home or Menu) will be rendered */}
+    // <div className='h-screen grid grid-rows-[auto_1fr_auto] '>
+      {/* <Header /> */}
+      {/* //FIXME -  */}
+      //  <div className='overflow-scroll'>
         
-      <main className='max-w-screen-lg mx-auto'>
+      {/* <main className='max-w-screen-lg mx-auto'> */}
+      // <main className='w-full mx-auto'>
+        {/* //NOTE - change this later */}
       {/* <main className='max-w-screen-lg mx-auto !flex justify-center items-center !bg-red-400'> */}
-        <Outlet /> {/* This is where child routes (like Home or Menu) will be rendered */}
-      </main>
-       </div>
-       <CartOverview></CartOverview>
-    </div>
-  );
+      // </main>
+      //  </div>
+      //  <CartOverview></CartOverview>
+    // </div>
 }
 
 export default Layout;

@@ -13,6 +13,7 @@ import Login from './features/users/LogIn';
 import SignUp from './features/users/SignUp';
 import MyOrders from './features/order/components/MyOrders';
 import { UiProvider } from './contexts/UiContexts';
+import AuthLayout from './UiComponents/AuthLayout';
 
 // Create the router with routes and loaders
 const router = createBrowserRouter([
@@ -22,11 +23,15 @@ const router = createBrowserRouter([
     children: [
       {
         // path: '/',
-        element: <Home />,
+        element: <AuthLayout />,
         errorElement:<Error></Error>,
         children:[
           {
-            path:'/',
+            path: '/',
+            element: <Home />,
+          },
+          {
+            path:'/login',
             element:<Login></Login>,
             errorElement:<Error></Error>,
             action:loginAction
@@ -36,10 +41,6 @@ const router = createBrowserRouter([
             action:signUpAction
           }
         ]
-      },
-      {
-        path: '/home',
-        element: <Home />,
       },
       {
         path: '/menu',
