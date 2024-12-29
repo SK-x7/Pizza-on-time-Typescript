@@ -7,6 +7,8 @@ import { addItem, getCurrentCartQuantityById } from "../../cart/cartSlice";
 import { useUiContext } from "../../../contexts/UiContexts";
 import RegularModal from "../../../UiComponents/RegularModal";
 import CustomizeOrder from "./CustomizeOrder";
+import { toast } from "react-hot-toast";
+import { isUserAuthenticated } from "../../users/userSlice";
 
 
 export interface MenuItemsProps {
@@ -22,20 +24,22 @@ function MenuItems({pizza,onCustomizeClick}:MenuItemsProps) {
   const dispatch =useDispatch();
   const currentQuantity = useSelector(getCurrentCartQuantityById(id));
   const isInCart=currentQuantity>0;
-
-  function handleAddToCart() {
-    console.log(1);
-    const newItem={
-      pizzaId:id,
-      name,
-      quantity:1,
-      unitPrice,
-      ingredients,
-      totalPrice:unitPrice*1,
-  }
-  dispatch(addItem(newItem));
   
-  }
+  const isLoggedIn = useSelector(isUserAuthenticated);
+
+  // function handleAddToCart() {
+  //   console.log(1);
+  //   const newItem={
+  //     pizzaId:id,
+  //     name,
+  //     quantity:1,
+  //     unitPrice,
+  //     ingredients,
+  //     totalPrice:unitPrice*1,
+  // }
+  // dispatch(addItem(newItem));
+  
+  // }
   
   
 
@@ -67,23 +71,77 @@ function MenuItems({pizza,onCustomizeClick}:MenuItemsProps) {
           {/* {isInCart&&
           } */}
           
-          {isInCart&&
+          {/* {isInCart&&
           <div className='flex items-center gap-3 sm:gap-8'>
             <Button type="small" onClick={()=>onCustomizeClick(pizza)}>Customize</Button>
             <UpdateItemQuantity pizzaId={id} currentQuantity={currentQuantity}></UpdateItemQuantity>
           
           <DeleteItem pizzaId={id}></DeleteItem>
           </div>
-          }
-
+          } */}
           
-          {!soldOut &&!isInCart&&
+          {/* {!soldOut &&!isInCart&&
           <Button type="small" onClick={handleAddToCart}>Add to cart</Button>
+          } */}
+          {
+           isLoggedIn===true? 
+           <AddToCartButton currentQuantity={currentQuantity} isInCart={isInCart} onCustomizeClick={onCustomizeClick} pizza={pizza} soldOut={soldOut}></AddToCartButton>:<LoginFirstButton></LoginFirstButton>
           }
+          
         </div>
       </div>
     </li>
   );
 }
+
+
+interface AddToCartProps{
+  isInCart: boolean;
+  pizza: MenuItem;
+  onCustomizeClick:(pizza: MenuItem) => void;
+  soldOut: boolean;
+  currentQuantity:number
+}
+
+function AddToCartButton({isInCart,pizza,onCustomizeClick,currentQuantity}:AddToCartProps) {
+  const dispatch = useDispatch();
+  const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
+
+  function handleAddToCart() {
+    console.log(1);
+    const newItem={
+      pizzaId:id,
+      name,
+      quantity:1,
+      unitPrice,
+      ingredients,
+      totalPrice:unitPrice*1,
+  }
+  dispatch(addItem(newItem));
+  
+  }
+  return <>
+  {isInCart&&
+    <div className='flex items-center gap-3 sm:gap-8'>
+      <Button type="small" onClick={()=>onCustomizeClick(pizza)}>Customize</Button>
+      <UpdateItemQuantity pizzaId={id} currentQuantity={currentQuantity}></UpdateItemQuantity>
+    
+    <DeleteItem pizzaId={id}></DeleteItem>
+    </div>
+    }
+
+    
+    {!soldOut &&!isInCart&&
+    <Button type="small" onClick={handleAddToCart}>Add to cart</Button>
+  }
+  </>
+}
+
+function LoginFirstButton() {
+  return <Button type="small" onClick={()=>{toast('Please Log In First!', {
+    icon: '⚠️',
+  });}}>Add To Cart</Button>
+}
+
 
 export default MenuItems;
