@@ -14,6 +14,8 @@ import SignUp from './features/users/SignUp';
 import MyOrders from './features/order/components/MyOrders';
 import { UiProvider } from './contexts/UiContexts';
 import AuthLayout from './UiComponents/AuthLayout';
+import ProtectedLayout from './UiComponents/ProtectedLayout';
+import ProtectedRoute from './UiComponents/ProtectedRoute';
 
 // Create the router with routes and loaders
 const router = createBrowserRouter([
@@ -26,10 +28,10 @@ const router = createBrowserRouter([
         element: <AuthLayout />,
         errorElement:<Error></Error>,
         children:[
-          {
-            path: '/',
-            element: <Home />,
-          },
+          // {
+          //   path: '/',
+          //   element: <Home />,
+          // },
           {
             path:'/login',
             element:<Login></Login>,
@@ -48,23 +50,47 @@ const router = createBrowserRouter([
         loader: fetchMenuFromApi,  // Loader for the Menu component
       },
       {
-        path: '/cart',
-        element: <Cart/>,
+        path: '/',
+        element: <Home />,
       },
       {
-        path:'/order/new',
-        element:<CreateOrder/>,
-      },
-      {
-        path:'/order/:orderId',
-        element:<Order/>,
-        loader:orderLoader,
+        element:<ProtectedLayout></ProtectedLayout>,
         errorElement:<Error></Error>,
-      },
-      {
-        path:"/me/orders",
-        element:<MyOrders/>,
-        errorElement:<Error></Error>,
+        children:[
+          {
+            path: '/cart',
+            element: 
+            // <ProtectedRoute>
+            <Cart/>
+            //  </ProtectedRoute>,
+          },
+          {
+            path:'/order/new',
+            element:
+            // <ProtectedRoute>
+            // {/* </ProtectedRoute>, */}
+            <CreateOrder/>
+          },
+          {
+            path:'/order/:orderId',
+            element:
+            // <ProtectedRoute>
+            <Order/>,
+            //  </ProtectedRoute>,
+            loader:orderLoader,
+            errorElement:<Error></Error>,
+          },
+          {
+            path:"/me/orders",
+            element:
+            // <ProtectedRoute>
+            <MyOrders/>
+            // {/* </ProtectedRoute> */}
+              
+            // <MyOrders/>,
+            ,errorElement:<Error></Error>,
+          }
+        ]
       }
     ],
   },
@@ -74,7 +100,6 @@ function App() {
   return (
     // <div className="">
     <UiProvider>
-      
       <RouterProvider router={router} />
     </UiProvider>
     // </div>

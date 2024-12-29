@@ -104,7 +104,7 @@ function CancelOrder({ order }: UpdateOrderProps) {
 
   async function handleClick() {
     if (canCancel) {
-      await updateOrderStatus(order.id, "Cancelled");
+      await updateOrderStatus(order.id, "cancelled");
       navigate(`/order/${order.id}`);
     }
   }

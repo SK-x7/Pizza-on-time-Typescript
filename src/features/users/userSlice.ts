@@ -33,7 +33,7 @@ interface user{
 }
 
 export interface initialUserState{
-  user?:user;
+    user?:user;
     username?: string;
     status?: string;
     position?:{
@@ -42,6 +42,7 @@ export interface initialUserState{
     };
     address:string;
     error:string;
+    isAuthenticated:boolean;
 }
 
 const initialState:initialUserState ={
@@ -50,13 +51,17 @@ const initialState:initialUserState ={
   status:'idle',
   position:{},
   address:"",
-  error:""
+  error:"",
+  isAuthenticated:false
 }
 
 const userSlice = createSlice({
    name:'user',
    initialState,
    reducers:{
+    handleUserAuthentication(state,action){
+      state.isAuthenticated = action.payload
+    },
     updateName(state,action){
       state.username = action.payload;
     },updateUser(state,action){
@@ -73,13 +78,14 @@ const userSlice = createSlice({
   })
 })
 
-export const {updateName,updateUser} = userSlice.actions;
+export const {updateName,updateUser,handleUserAuthentication} = userSlice.actions;
 
 export default userSlice.reducer;
 
 export const getUserName = (state:{user:initialUserState})=>state.user.username;
 export const getUser = (state:{user:initialUserState})=>state.user.user;
 export const getUserId = (state:{user:initialUserState})=>state.user.user?.user_id;
+export const isUserAuthenticated = (state:{user:initialUserState})=>state.user.isAuthenticated;
 
 
 

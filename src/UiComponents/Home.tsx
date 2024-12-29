@@ -10,7 +10,7 @@ import Button from "./Button";
 function Home() {
   const username=useSelector((state:RootState)=>state.user.username);
   return (
-    <div className=" text-center flex items-center !h-full my-2 bg-yellow-100/75">
+    <div className=" text-center flex items-center !h-full bg-yellow-100/75">
       <div className="flex flex-col gap-7 pl-28">
       <div className="flex w-2/3 flex-col gap-2 ">
         
@@ -46,12 +46,7 @@ function Home() {
       <img className="object-cover" src="../../public/76745d89868413.5e04311b1b5f4-removebg-preview.png"/>
       </div>
       </div>
-      
-            
-
-      
-
-  );
+    );
 }
 
 export default Home;
