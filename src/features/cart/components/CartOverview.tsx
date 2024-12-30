@@ -9,9 +9,9 @@ import { toast } from 'react-hot-toast';
 
 function CartOverview() {
   const isLoggedIn = useSelector(isUserAuthenticated)
+  const totalCartQuantity = useSelector(getTotalCartQuantity)
+  const totalCartPrice = useSelector(getTotalCartPrice)
   if(!isLoggedIn) return null;
-    const totalCartQuantity = useSelector(getTotalCartQuantity)
-    const totalCartPrice = useSelector(getTotalCartPrice)
     if(!totalCartQuantity)  return null;
    
   

@@ -32,7 +32,7 @@ function useAuth(){
         // navigate("/");
       } else if (session) {
           setIsAuthenticated(true);
-          dispatch(handleUserAuthentication(true));
+          dispatch(handleUserAuthentication());
         console.log('Session restored:', session);
         toast.success("Login successful!✔️");
         localStorage.setItem('supabaseSession',JSON.stringify(session));

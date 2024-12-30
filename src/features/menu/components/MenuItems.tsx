@@ -55,10 +55,10 @@ function MenuItems({pizza,onCustomizeClick}:MenuItemsProps) {
       />
       <div className="flex grow flex-col pt-0.5">
         <p className="font-medium">{name}</p>
-        <p className="text-sm capitalize italic text-stone-500">
+        <p className="text-sm capitalize italic text-stone-500 mb-2">
           {ingredients.join(', ')}
         </p>
-        <div className="mt-auto flex items-center justify-between">
+        <div className=" flex items-center justify-between">
           {!soldOut ? (
             <p className="text-sm">{(unitPrice)}</p>
           ) : (

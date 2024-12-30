@@ -65,7 +65,7 @@ export async function loginUser(obj:loginFormDataInterface) {
   let {data,error}=await supabase.auth.signInWithPassword(obj);
   if(error) {
     toast.error(error.message);
-    return;
+    return false;
   }
   if(data){
     console.log(data);
@@ -73,6 +73,20 @@ export async function loginUser(obj:loginFormDataInterface) {
   if(data.session){
       toast.success("Login successful✔️✔️");
       localStorage.setItem('supabaseSession', JSON.stringify(data.session));
+      return true;
       return redirect("/menu");
   }
+}
+
+export async function logoutUser() {
+  let { error } = await supabase.auth.signOut()
+  if(error) {
+    toast.error(error.message);
+    
+    return false;
+  }
+  
+  localStorage.removeItem('supabaseSession');
+  localStorage.removeItem("user_id");
+  return true;
 }

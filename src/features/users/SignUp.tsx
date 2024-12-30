@@ -56,9 +56,9 @@ const isValidPhone = (str:string) =>
              <Form method="POST" className='flex w-3/4  px-5 ring-1 ring-green-600 flex-col justify-evenly  border rounded-xl'>
               <h1 className="capitalize text-xl font-semibold text-green-600 my-2">Create your account</h1>
        <div className="mb-5 flex flex-col gap-0 sm:flex-row sm:items-center">
-           {/* <label className="sm:basis-40">Username</label> */}
            <input className="input grow p-2 ring-1 ring-green-400 rounded-xl" type="text" name="username" defaultValue="test" required placeholder='Enter your name'/>
          </div>
+           {/* <label className="sm:basis-40">Username</label> */}
        <div className="mb-5 flex flex-col gap-0 sm:flex-row sm:items-center">
            {/* <label className="sm:basis-40">Email :</label> */}
            <input className="input grow p-2 ring-1 ring-green-400  rounded-xl" type="email" name="email" defaultValue="test@gmail.com" required placeholder='Enter your email'/>

@@ -29,7 +29,8 @@ export default function Menu() {
           />
         </RegularModal>
       )}
-      <ul className="divide-y divide-stone-200 px-2  w-3/4">
+      <ul className="divide-y divide-stone-200 px-2  w-1/2">
+        
         {menu.map((pizza:MenuItem) => (
           <MenuItems pizza={pizza} key={pizza.id} onCustomizeClick={handleOpenModal}/>
           ))}

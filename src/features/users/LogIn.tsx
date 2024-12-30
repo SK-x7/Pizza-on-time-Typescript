@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ActionFunctionArgs, Form, Link, redirect, useActionData, useNavigation } from 'react-router-dom';
+import { ActionFunctionArgs, Form, Link, Navigate, redirect, useActionData, useNavigation } from 'react-router-dom';
 import Button from '../../UiComponents/Button';
 import { supabase } from '../../apis/apiRestaurant';
 import { toast } from 'react-hot-toast';
 import { loginFormDataInterface, loginUser } from '../../apis/apiUsers';
+import { handleUserAuthentication } from './userSlice';
+import store from '../../store';
 // import { createOrder } from '../../../apis/apiRestaurant';
 // import Button from '../../../UiComponents/Button'
 // import {clearCart, getCart, getTotalCartPrice} from "../../cart/cartSlice";
@@ -100,7 +102,13 @@ export async function action({ request }:ActionFunctionArgs) {
     email:data.email as string,
     password:data.password as string
   }
-  return await loginUser(obj);
+  const loginSuccessful = await loginUser(obj);
+  if(loginSuccessful===true){
+    store.dispatch(handleUserAuthentication());
+    return redirect("/menu");
+  }else{
+    return;
+  }
   
 //   const order:newOrderInterface = {
 //     ...data,

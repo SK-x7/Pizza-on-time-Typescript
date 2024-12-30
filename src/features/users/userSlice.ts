@@ -59,30 +59,37 @@ const userSlice = createSlice({
    name:'user',
    initialState,
    reducers:{
-    handleUserAuthentication(state,action){
-      state.isAuthenticated = action.payload
+    handleUserAuthentication(state){
+      state.isAuthenticated = true
     },
     updateName(state,action){
       state.username = action.payload;
+      state.isAuthenticated = true
     },updateUser(state,action){
       state.user=action.payload;
+      state.isAuthenticated = true
+    },
+    handleLoggedOutUser(state){
+      state.user={};
+      state.isAuthenticated = false;
     }
   },
   extraReducers:(builder)=>builder.addCase(fetchAddress.pending,(state,action)=>{state.status='loading'}).addCase(fetchAddress.fulfilled,(state,action)=>{
     state.position=action.payload.position;
     state.address=action.payload.address;
     state.status='idle'
+    
   }).addCase(fetchAddress.rejected,(state,action)=>{
     state.status='error';
     state.error='There was an error getting your address. Make sure to fill this field';
   })
 })
 
-export const {updateName,updateUser,handleUserAuthentication} = userSlice.actions;
+export const {updateName,updateUser,handleUserAuthentication,handleLoggedOutUser} = userSlice.actions;
 
 export default userSlice.reducer;
 
-export const getUserName = (state:{user:initialUserState})=>state.user.username;
+export const getUserName = (state:{user:initialUserState})=>state.user.user?.username;
 export const getUser = (state:{user:initialUserState})=>state.user.user;
 export const getUserId = (state:{user:initialUserState})=>state.user.user?.user_id;
 export const isUserAuthenticated = (state:{user:initialUserState})=>state.user.isAuthenticated;

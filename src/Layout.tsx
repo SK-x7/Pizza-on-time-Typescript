@@ -69,8 +69,8 @@ function Layout() {
   return (
     <div className=" !h-screen grid grid-rows-[auto_1fr_auto]">
       <Header />
-      <div className="overflow-y-scroll flex flex-1">
-        <main className=" mx-auto h-full !max-h-full">
+      <div className="overflow-y-scroll flex flex-1 w-full">
+        <main className=" mx-auto h-full w-full !max-h-full">
           <Outlet />
         </main>
       </div>
