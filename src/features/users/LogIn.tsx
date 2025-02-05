@@ -1,12 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ActionFunctionArgs, Form, Link, Navigate, redirect, useActionData, useNavigation } from 'react-router-dom';
+import { ActionFunctionArgs, Form, Link, redirect } from 'react-router-dom';
 import Button from '../../UiComponents/Button';
 // import { supabase } from '../../apis/apiRestaurant';
-import { toast } from 'react-hot-toast';
 import { loginFormDataInterface, loginUser } from '../../apis/apiUsers';
-import { handleUserAuthentication } from './userSlice';
 import store from '../../store';
+import { handleUserAuthentication } from './userSlice';
 // import { createOrder } from '../../../apis/apiRestaurant';
 // import Button from '../../../UiComponents/Button'
 // import {clearCart, getCart, getTotalCartPrice} from "../../cart/cartSlice";
@@ -17,10 +14,10 @@ import store from '../../store';
 // import Button from '../../ui/Button';
 
 // https://uibakery.io/regex-library/phone-number
-const isValidPhone = (str:string) =>
-/^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
-  str
-  );
+// const isValidPhone = (str:string) =>
+// /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
+//   str
+//   );
   
   
   
@@ -81,7 +78,6 @@ const isValidPhone = (str:string) =>
   
 </Form>
       </div>
-      {/* //FIXME -  */}
     </div>
     
     

@@ -1,15 +1,11 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { updateOrder } from "../../../apis/apiRestaurant";
+import { useEffect } from "react";
 import { useUiContext } from "../../../contexts/UiContexts";
-import Button from "../../../UiComponents/Button";
 import { finalOrderInterface } from "./CreateOrder";
 
 interface UpdateOrderProps {
     order: finalOrderInterface;
   }
 function UpdateOrder({order}:UpdateOrderProps) {
-    const navigate=useNavigate();
     
     
     
@@ -51,7 +47,7 @@ function UpdateOrder({order}:UpdateOrderProps) {
             // NOTE - ┴
             setCanUpdate(false);
         }
-    }, [order.estimatedDelivery]);
+    }, [order.estimatedDelivery,order.created_at,order.status,setCanUpdate]);
     
     
     async function handleClick() {

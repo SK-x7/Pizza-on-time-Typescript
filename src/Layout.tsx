@@ -1,15 +1,5 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
-import CartOverview from './features/cart/components/CartOverview';
-import Header from './UiComponents/Header';
 
-
-interface UserInterface {
-  id: number;
-  user_id: string;  
-  username?: string;
-  created_at: string;
-}
 
 // Layout component that wraps the Header and renders child routes
 function Layout() {

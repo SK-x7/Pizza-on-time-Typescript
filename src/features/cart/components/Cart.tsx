@@ -1,12 +1,11 @@
 import LinkButton from '../../../UiComponents/LinkButton';
-import Button from '../../../UiComponents/Button';
-import CartItem, { CartItemProps, itemInCart } from './CartItem';
+import CartItem, { itemInCart } from './CartItem';
 
-import {useSelector,useDispatch} from "react-redux"
-import { clearCart, getCart } from '../cartSlice';
-import { getUserName } from '../../users/userSlice';
-import EmptyCart from './EmptyCart';
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
+import { getUserName } from '../../users/userSlice';
+import { clearCart, getCart } from '../cartSlice';
+import EmptyCart from './EmptyCart';
 // import CartItem from './CartItem';
 
 // const fakeCart = [

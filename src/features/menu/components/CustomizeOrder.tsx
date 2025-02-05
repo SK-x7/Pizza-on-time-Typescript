@@ -1,10 +1,8 @@
-import { ResultType } from '@remix-run/router/dist/utils';
-import React, { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useUiContext } from '../../../contexts/UiContexts';
-import Button from '../../../UiComponents/Button'
-import { getCart, updateIngredientsOfItem } from '../../cart/cartSlice';
+import { updateIngredientsOfItem } from '../../cart/cartSlice';
 
 export default function CustomizeOrder({allIngredients,ingredients,id}:{allIngredients:string[],ingredients:string[],id:number}) {
     console.log(id);

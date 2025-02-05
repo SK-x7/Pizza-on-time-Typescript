@@ -1,26 +1,22 @@
 // Test ID: IIDSAT
-import React from 'react';
 
 import OrderItem from './OrderItem';
 
+import { useEffect } from 'react';
 import { LoaderFunctionArgs, useFetcher, useLoaderData } from 'react-router-dom';
 import { getOrder, updateOrderStatus } from '../../../apis/apiRestaurant';
+import { useUiContext } from '../../../contexts/UiContexts';
+import RegularModal from '../../../UiComponents/RegularModal';
 import {
   calcMinutesLeft,
   formatCurrency,
   formatDate,
 } from '../../../utils/helpers';
-import { useEffect } from 'react';
-import UpdateOrder from './UpdateOrder';
-import { itemInCart } from '../../cart/components/CartItem';
-import {MenuItem} from "../../menu/menuInterfaces"
-import { o } from './MyOrders';
-import { finalOrderInterface } from './CreateOrder';
 import CancelOrder from '../../cart/components/CancelOrder';
-import Button from '../../../UiComponents/Button';
-import { useUiContext } from '../../../contexts/UiContexts';
-import RegularModal from '../../../UiComponents/RegularModal';
+import { itemInCart } from '../../cart/components/CartItem';
 import EditOrderModal from '../../cart/components/EditOrderModal';
+import { finalOrderInterface } from './CreateOrder';
+import UpdateOrder from './UpdateOrder';
 
 
 export interface orderInterface{
@@ -37,7 +33,7 @@ export interface orderInterface{
 
 
 function Order() {
-  let order = useLoaderData() as finalOrderInterface;
+  const order = useLoaderData() as finalOrderInterface;
   const fetcher = useFetcher();
   useEffect(function () {
     if(!fetcher.data&&fetcher.state==='idle') fetcher.load('/menu');

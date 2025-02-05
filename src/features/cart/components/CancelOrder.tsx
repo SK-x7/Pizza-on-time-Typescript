@@ -59,11 +59,8 @@
 // export default CancelOrder
 
 
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { updateOrderStatus } from "../../../apis/apiRestaurant";
+import { useEffect } from "react";
 import { useUiContext } from "../../../contexts/UiContexts";
-import Button from "../../../UiComponents/Button";
 import { finalOrderInterface } from "../../order/components/CreateOrder";
 
 interface UpdateOrderProps {
@@ -71,7 +68,6 @@ interface UpdateOrderProps {
 }
 
 function CancelOrder({ order }: UpdateOrderProps) {
-  const navigate = useNavigate();
   const {canCancel, setCanCancel,setEditAction,setSelectedEditOrder,setIsRegularModalOpen} = useUiContext();
 
   useEffect(() => {
@@ -101,7 +97,7 @@ function CancelOrder({ order }: UpdateOrderProps) {
       // Disable cancellation if timeRemaining is less than or equal to 0
       setCanCancel(false);
     }
-  }, [order.estimatedDelivery, order.status]);
+  }, [order.estimatedDelivery, order.status,order.created_at,setCanCancel]);
 
   async function handleClick() {
     if (canCancel) {

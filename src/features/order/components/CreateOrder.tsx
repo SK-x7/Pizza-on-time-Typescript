@@ -1,25 +1,21 @@
-import React from 'react';
 
 import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ActionFunctionArgs, Form, redirect, useActionData, useNavigation } from 'react-router-dom';
+import { useActionData, useNavigation } from 'react-router-dom';
 import { createOrder } from '../../../apis/apiRestaurant';
-import Button from '../../../UiComponents/Button'
-import {clearCart, getCart, getTotalCartPrice} from "../../cart/cartSlice";
-import EmptyCart from "../../cart/components/EmptyCart"
-import store, { RootState,AppDispatch } from "../../../store"
+import { AppDispatch, RootState } from "../../../store";
+import Button from '../../../UiComponents/Button';
+import { getCart, getTotalCartPrice } from "../../cart/cartSlice";
+import EmptyCart from "../../cart/components/EmptyCart";
 // import { formatCurrency } from '../../utilities/helpers';
-import { fetchAddress, getUserId, getUserName } from '../../users/userSlice';
-import { itemInCart } from '../../cart/components/CartItem';
-import { getEstimatedDeliveryTime } from '../../../utils/helpers';
 import bcrypt from 'bcryptjs';
+import { getEstimatedDeliveryTime } from '../../../utils/helpers';
+import { itemInCart } from '../../cart/components/CartItem';
+import { fetchAddress, getUserId, getUserName } from '../../users/userSlice';
 // import Button from '../../ui/Button';
 
 // https://uibakery.io/regex-library/phone-number
-const isValidPhone = (str:string) =>
-/^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
-  str
-  );
+
   
   
   
@@ -66,6 +62,8 @@ const isValidPhone = (str:string) =>
   
   function CreateOrder() {
     const dispatch = useDispatch<AppDispatch>();
+    const formErrors = useActionData() as ErrorsInForm;
+
     const [withPriority, setWithPriority] = useState(false);
   const {username:firstName,status:addressStatus,position,address,error:errorAddress} = useSelector((state:RootState)=>state.user);
   const username = useSelector(getUserName);
@@ -111,7 +109,6 @@ const isValidPhone = (str:string) =>
     }
 
   
-  const formErrors = useActionData() as ErrorsInForm;
   
   return (
     <div className="px-4 py-4 sm:py-6 !text-sm sm:!text-base w-full max-w-screen-md ">

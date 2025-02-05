@@ -1,14 +1,10 @@
-import UpdateItemQuantity from "../../cart/components/updateItemQuantity";
-import DeleteItem from "../../cart/components/DeleteItem";
-import { MenuItem } from "../menuInterfaces";
-import Button from "../../../UiComponents/Button";
-import {useDispatch,useSelector} from "react-redux"
-import { addItem, getCurrentCartQuantityById } from "../../cart/cartSlice";
-import { useUiContext } from "../../../contexts/UiContexts";
-import RegularModal from "../../../UiComponents/RegularModal";
-import CustomizeOrder from "./CustomizeOrder";
 import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem, getCurrentCartQuantityById } from "../../cart/cartSlice";
+import DeleteItem from "../../cart/components/DeleteItem";
+import UpdateItemQuantity from "../../cart/components/updateItemQuantity";
 import { isUserAuthenticated } from "../../users/userSlice";
+import { MenuItem } from "../menuInterfaces";
 
 
 export interface MenuItemsProps {
@@ -18,10 +14,8 @@ export interface MenuItemsProps {
 
 function MenuItems({pizza,onCustomizeClick}:MenuItemsProps) {
   
-  const {isRegularModalOpen,toggleModel}=useUiContext();
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
   
-  const dispatch =useDispatch();
   const currentQuantity = useSelector(getCurrentCartQuantityById(id));
   const isInCart=currentQuantity>0;
   
@@ -109,7 +103,7 @@ interface AddToCartProps{
 
 function AddToCartButton({isInCart,pizza,onCustomizeClick,currentQuantity}:AddToCartProps) {
   const dispatch = useDispatch();
-  const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
+  const { id, name, unitPrice, ingredients, soldOut, } = pizza;
 
   function handleAddToCart() {
     console.log(1);

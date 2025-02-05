@@ -1,22 +1,15 @@
-let API_URL = import.meta.env.VITE_API_URL;
-let SUPABASE_PROJECT_URL = import.meta.env.VITE_SUPABASE_URL;
-let SUPABASE_API_KEY = import.meta.env.VITE_SUPABASE_APIKEY;
+const API_URL = import.meta.env.VITE_API_URL!;
 
 
-import { MenuItem } from "../features/menu/menuInterfaces";
-import { finalOrderInterface, newOrderInterface } from "../features/order/components/CreateOrder";
-import { createClient } from '@supabase/supabase-js'
-import { useSelector } from "react-redux";
-import { clearCart, getTotalCartPrice } from "../features/cart/cartSlice";
-import { getUserId } from "../features/users/userSlice";
-import { getEstimatedDeliveryTime } from "../utils/helpers";
-import { toast } from "react-hot-toast";
-import store from "../store";
-import { Navigate, redirect } from "react-router-dom";
-import { o } from "../features/order/components/MyOrders";
-import { itemInCart } from "../features/cart/components/CartItem";
-import { supabase } from "./supabase";
+
 import bcrypt from "bcryptjs";
+import { toast } from "react-hot-toast";
+import { clearCart } from "../features/cart/cartSlice";
+import { itemInCart } from "../features/cart/components/CartItem";
+import { MenuItem } from "../features/menu/menuInterfaces";
+import { newOrderInterface } from "../features/order/components/CreateOrder";
+import store from "../store";
+import { supabase } from "./supabase";
 // import { supabase } from "./apiUsers";
 
 
@@ -30,7 +23,7 @@ import bcrypt from "bcryptjs";
 
 
 export async function getMenuFromSupabase():Promise<MenuItem[]|void> {
-  let { data, error } = await supabase
+  const { data, error } = await supabase
   .from('menu')
   .select('*');
   if(error){
@@ -74,7 +67,7 @@ export async function getOrder(id:string) {
 
 
 export async function fetchOrders(id:string) {
-  let{data:orders,error}= await supabase.from("order").select('*').eq("userId",id);
+  const{data:orders,error}= await supabase.from("order").select('*').eq("userId",id);
   if(error){
     toast.error(`Could not find orders`);
     console.log(error);
@@ -170,7 +163,7 @@ export async function updateOrder(orderId:number, updateObj:updateOrder) {
     
     
   } catch (err) {
-    throw Error('Failed updating your order');
+    throw Error(err+'Failed updating your order');
   }
 }
 
@@ -193,6 +186,7 @@ export async function validateOrderPin(orderId:number,userId:string|null,pinToVa
     
     
   } catch (err) {
+    console.log(err);
     throw Error('Failed updating your order');
   }
 }

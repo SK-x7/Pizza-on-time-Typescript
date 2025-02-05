@@ -1,6 +1,5 @@
-import { useDispatch } from "react-redux"
-import Button from "../../../UiComponents/Button"
-import { ButtonProps } from "../cartInterface"
+import { useDispatch } from "react-redux";
+import { ButtonProps } from "../cartInterface";
 import { decreaseItemQuantity, increaseItemQuantity } from "../cartSlice";
 
 

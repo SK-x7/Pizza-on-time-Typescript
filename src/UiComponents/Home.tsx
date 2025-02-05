@@ -1,15 +1,7 @@
-import { useSelector } from "react-redux";
-import { Link, Outlet } from "react-router-dom";
-import CreateNewUser from "../features/users/CreateNewUser";
-import Login from "../features/users/LogIn";
-import SignUp from "../features/users/SignUp";
-import LoginUser from "../features/users/SignUp";
-import { RootState } from "../store";
-import Button from "./Button";
+import { Link } from "react-router-dom";
 import Header from "./Header";
 
 function Home() {
-  const username=useSelector((state:RootState)=>state.user.username);
   return (
     <div className="flex flex-col max-h-screen h-screen min-h-screen" >
       <Header/>

@@ -1,9 +1,8 @@
-import React, { FormEvent, FormEventHandler } from 'react'
+import { FormEvent } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { updateOrder, updateOrderStatus, validateOrderPin } from '../../../apis/apiRestaurant';
 import { useUiContext } from '../../../contexts/UiContexts';
-import Button from '../../../UiComponents/Button';
 
 function EditOrderModal({editAction,orderId,estimatedDelivery,created_at,status}:{editAction:string,orderId:number,estimatedDelivery:Date,created_at:Date,status:string}) {
     const {user_id,canCancel,setEditAction,setSelectedEditOrder,setIsRegularModalOpen} = useUiContext();
@@ -65,7 +64,7 @@ function EditOrderModal({editAction,orderId,estimatedDelivery,created_at,status}
         if (timeRemaining > 0&&status==="preparing") {
             return true;
         }else{
-            false
+            return false
         }
     }
     

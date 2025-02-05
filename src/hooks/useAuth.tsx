@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { supabase } from "../apis/supabase";
 import { useUiContext } from "../contexts/UiContexts";
 // import { supabase } from "../apis/apiRestaurant";
@@ -16,7 +15,6 @@ export interface UserInterface {
 
 function useAuth(){
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const {setUser_id} = useUiContext();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean|null>(null);
 
@@ -41,7 +39,7 @@ function useAuth(){
         console.log('Session restored:', session);
         toast.success("Login successful!✔️");
         localStorage.setItem('supabaseSession',JSON.stringify(session));
-        let { data:users, error } = await supabase
+        const { data:users } = await supabase
   .from('users')
   .select('*').eq("user_id",session.user.id);
   console.log(users);

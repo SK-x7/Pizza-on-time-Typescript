@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { getMenuFromSupabase } from "../apis/apiRestaurant";
 import SearchOrder from "../features/order/components/SearchOrder";
 import Username from "../features/users/LogoutButton";
 import { isUserAuthenticated } from "../features/users/userSlice";
-import useAuth from "../hooks/useAuth";
 
 
 export default function Header() {

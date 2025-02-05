@@ -1,9 +1,7 @@
-import { useState } from "react";
-import {useLoaderData} from "react-router-dom"
-import { getMenuFromSupabase } from "../../../apis/apiRestaurant"
+import { useLoaderData } from "react-router-dom";
+import { getMenuFromSupabase } from "../../../apis/apiRestaurant";
 import { useUiContext } from "../../../contexts/UiContexts";
 import RegularModal from "../../../UiComponents/RegularModal";
-import Login from "../../users/LogIn";
 import { MenuItem } from "../menuInterfaces.js";
 import CustomizeOrder from "./CustomizeOrder";
 import MenuItems from "./MenuItems.js";

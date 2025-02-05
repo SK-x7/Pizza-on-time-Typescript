@@ -1,6 +1,5 @@
 import { useDispatch } from "react-redux";
-import Button from "../../../UiComponents/Button";
-import {deleteItem} from "../cartSlice"
+import { deleteItem } from "../cartSlice";
 
 interface DeleteItemProps{
     pizzaId:number;

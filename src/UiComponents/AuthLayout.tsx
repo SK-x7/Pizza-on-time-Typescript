@@ -1,12 +1,8 @@
 import { useEffect } from 'react';
-import { toast } from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom';
 // import { supabase } from '../apis/apiRestaurant';
-import { updateUser } from '../features/users/userSlice';
 import useAuth from '../hooks/useAuth';
-import Header from './Header'
-import { UserInterface } from './ProtectedLayout';
+import Header from './Header';
 
 export default function AuthLayout() {
   const {isAuthenticated} = useAuth();

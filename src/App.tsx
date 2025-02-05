@@ -111,7 +111,7 @@ import { createBrowserRouter, RouterProvider} from 'react-router-dom';
 import Home from './UiComponents/Home.tsx';
 import Error from './UiComponents/Error';
 import Cart from './features/cart/components/Cart';
-import Menu, { fetchMenuFromApi } from './features/menu/components/Menu';
+import { fetchMenuFromApi } from './features/menu/components/Menu';
 import CreateOrder from './features/order/components/CreateOrder'
 import Order from './features/order/components/Order'
 import {loader as orderLoader}  from './features/order/components/Order'

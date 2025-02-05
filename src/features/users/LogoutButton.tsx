@@ -1,10 +1,9 @@
 // import { useSelector } from "react-redux";
 
 import { toast } from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../apis/apiUsers";
-import { RootState } from "../../store";
 import { handleLoggedOutUser } from "./userSlice";
 
  function LogoutButton() {

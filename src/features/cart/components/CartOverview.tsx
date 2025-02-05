@@ -1,10 +1,7 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import {useDispatch, useSelector, useStore} from "react-redux"
-import { getCart, getTotalCartPrice, getTotalCartQuantity } from '../cartSlice';
-import { useEffect, useState } from 'react';
-import { initialUserState, isUserAuthenticated, updateUser } from '../../users/userSlice';
-import { UserInterface } from '../../../UiComponents/ProtectedLayout';
-import { toast } from 'react-hot-toast';
+import { useSelector } from "react-redux";
+import { Link, useLocation } from 'react-router-dom';
+import { isUserAuthenticated } from '../../users/userSlice';
+import { getTotalCartPrice, getTotalCartQuantity } from '../cartSlice';
 
 function CartOverview() {
   const isLoggedIn = useSelector(isUserAuthenticated)
@@ -31,3 +28,4 @@ function CartOverview() {
 }
 
 export default CartOverview;
+
