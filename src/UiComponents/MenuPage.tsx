@@ -1,4 +1,3 @@
-import React from 'react'
 import CartOverview from '../features/cart/components/CartOverview'
 import Menu from '../features/menu/components/Menu'
 import Header from './Header'
