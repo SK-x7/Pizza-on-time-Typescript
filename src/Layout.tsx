@@ -1,3 +1,4 @@
+import React from 'react';
 import { Outlet } from 'react-router-dom';
 import CartOverview from './features/cart/components/CartOverview';
 import Header from './UiComponents/Header';
