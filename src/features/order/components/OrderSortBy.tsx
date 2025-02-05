@@ -33,7 +33,8 @@ export default function OrderSortBy() {
     }
   return (
     // <div>
-        <select className=' bg-yellow-100 max-h-8 text-sm rounded-sm p-1' onChange={(e)=>{e.preventDefault();handleSortChangedValue(e.target.value);}}>
+        <select className=' bg-yellow-100 max-h-8 
+        text-[10px] min-[375px]:text-xs sm:text-sm rounded-sm p-1' onChange={(e)=>{e.preventDefault();handleSortChangedValue(e.target.value);}}>
             {
                 sortByValues&&sortByValues.map((obj)=>(
                     <option value={obj.value} key={obj.value}>{obj.label}</option>

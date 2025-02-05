@@ -18,7 +18,8 @@ export default function Menu() {
       toggleModel(); // Opens modal
     }
     return (
-      <div className="w-full flex justify-center items-center">
+      
+      <div className="!w-full !h-full flex justify-center items-center py-1 sm:py-2 !max-w-screen-lg mx-auto">
         {/* {isRegularModalOpen&&<RegularModal onClose={toggleModel}><CustomizeOrder ingredients={menu[0].allIngredients}></CustomizeOrder></RegularModal>} */}
         {isRegularModalOpen && selectedPizza && (
         <RegularModal onClose={() => { setSelectedPizza(null); toggleModel(); }}>
@@ -29,13 +30,17 @@ export default function Menu() {
           />
         </RegularModal>
       )}
-      <ul className="divide-y divide-stone-200 px-2  w-1/2">
+      <ul className="divide-y-2 divide-stone-200 px-2  !w-full sm:w-1/2">
         
         {menu.map((pizza:MenuItem) => (
           <MenuItems pizza={pizza} key={pizza.id} onCustomizeClick={handleOpenModal}/>
           ))}
       </ul>
           </div>
+          
+          
+          
+          
     );
 }
 

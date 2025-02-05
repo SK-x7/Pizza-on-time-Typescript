@@ -62,6 +62,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateOrderStatus } from "../../../apis/apiRestaurant";
+import { useUiContext } from "../../../contexts/UiContexts";
 import Button from "../../../UiComponents/Button";
 import { finalOrderInterface } from "../../order/components/CreateOrder";
 
@@ -71,7 +72,7 @@ interface UpdateOrderProps {
 
 function CancelOrder({ order }: UpdateOrderProps) {
   const navigate = useNavigate();
-  const [canCancel, setCanCancel] = useState(false);
+  const {canCancel, setCanCancel,setEditAction,setSelectedEditOrder,setIsRegularModalOpen} = useUiContext();
 
   useEffect(() => {
     const currentTime = new Date();
@@ -104,18 +105,24 @@ function CancelOrder({ order }: UpdateOrderProps) {
 
   async function handleClick() {
     if (canCancel) {
-      await updateOrderStatus(order.id, "cancelled");
-      navigate(`/order/${order.id}`);
+      setEditAction('cancel');
+      setSelectedEditOrder(order.id);
+      setIsRegularModalOpen(true);
+      // await updateOrderStatus(order.id, "cancelled");
+      // navigate(`/order/${order.id}`);
     }
+    //   setEditAction(null);
+    // setSelectedEditOrder(null);
+    // }
   }
 
   // Only show the button when cancellation is allowed
   if (!canCancel||!order) return null;
 
   return (
-    <Button type="primary" disabled={!canCancel} onClick={handleClick}>
+    <button className="bg-yellow-400 flex justify-center items-center text-sm py-1 px-4 rounded-lg min-[425px]:text-base md:text-lg md:px-6   text-stone-800 transition-colors duration-300 hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed" disabled={!canCancel} onClick={handleClick}>
       Cancel Order
-    </Button>
+    </button>
   );
 }
 

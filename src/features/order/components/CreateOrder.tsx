@@ -10,6 +10,7 @@ import store, { RootState,AppDispatch } from "../../../store"
 import { fetchAddress, getUserId, getUserName } from '../../users/userSlice';
 import { itemInCart } from '../../cart/components/CartItem';
 import { getEstimatedDeliveryTime } from '../../../utils/helpers';
+import bcrypt from 'bcryptjs';
 // import Button from '../../ui/Button';
 
 // https://uibakery.io/regex-library/phone-number
@@ -22,6 +23,8 @@ const isValidPhone = (str:string) =>
   
   interface ErrorsInForm{
     phone?: number|string;
+    customer?:string
+    orderPin?:string
   } 
   
   export interface newOrderInterface{
@@ -36,6 +39,7 @@ const isValidPhone = (str:string) =>
     priorityPrice?:number;
     status?:string;
     userId?:string;
+    orderPin?:string
     estimatedDelivery:Date;
   }
   
@@ -53,6 +57,7 @@ const isValidPhone = (str:string) =>
     priorityPrice:number;
     status:string;
     userId:string;
+    orderPin:string;
     estimatedDelivery:Date;
   }
   
@@ -75,7 +80,10 @@ const isValidPhone = (str:string) =>
   const totalPrice = totalCartPrice+priorityPrice;
   if(!cart.length)  return <EmptyCart></EmptyCart>
   
-
+    
+  async function handlePasswordHashing(myPlainTextPassword:string){
+    return await bcrypt.hash(myPlainTextPassword, 6);  
+  } 
   
   
     async function handleFormSubmit(e:FormEvent) {
@@ -83,16 +91,19 @@ const isValidPhone = (str:string) =>
       const formElement=e.target as HTMLFormElement;
       const formData=new FormData(formElement);
       const estimatedDelivery=getEstimatedDeliveryTime(3,5);
+      let tempPass:string|undefined =await handlePasswordHashing(formData.get('orderPin') as string)
       const data:newOrderInterface={
         customer: formData.get('customer') as string,
         phone: formData.get('phone') as string,
         address: formData.get('address') as string,
         priority: formData.get('priority') === 'true',
+        orderPin: tempPass,
         cart,
         userId,
         status:"preparing",
         estimatedDelivery,
       }
+      tempPass = undefined;
       console.log(data);
       return await createOrder(data,totalCartPrice);
     }
@@ -101,20 +112,30 @@ const isValidPhone = (str:string) =>
   const formErrors = useActionData() as ErrorsInForm;
   
   return (
-    <div className="px-4 py-6">
-      <h2 className="mb-8 text-xl font-semibold">Ready to order? Let's go!</h2>
+    <div className="px-4 py-4 sm:py-6 !text-sm sm:!text-base w-full max-w-screen-md ">
+      <h2 className="mb-4 sm:mb-8 text-xl font-semibold">Ready to order? Let's go!</h2>
 
       {/* <Form method="POST" action="/order/new"> */}
-      <form onSubmit={handleFormSubmit}>
-        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
-          <label className="sm:basis-40">First Name</label>
-          <input className="input grow" type="text" name="customer" required placeholder={firstName||username||"Enter your name"} defaultValue={firstName||username}/>
+      <form onSubmit={handleFormSubmit} className="flex flex-col gap-5">
+        <div className=" flex flex-col gap-2 sm:flex-row sm:items-center">
+          <label className="text-left sm:basis-40">First Name :</label>
+          <div className='grow'>
+            
+          <input className="input w-full relative p-2 capitalize" type="text" name="customer" required placeholder={firstName||username||"Enter your name"} maxLength={100} defaultValue={firstName||username}/>
+          {
+            formErrors?.customer&&(
+              <p className="mt-2 rounded-md bg-red-100 p-2 text-xs text-red-700">
+                {formErrors.customer}
+              </p>
+            )
+          }
+          </div>
         </div>
 
-        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
-          <label className="sm:basis-40">Phone number</label>
+        <div className=" flex flex-col gap-2 sm:flex-row sm:items-center">
+          <label className="sm:basis-40 text-left">Phone number :</label>
           <div className="grow">
-            <input className="input w-full" type="tel" name="phone" required placeholder='Enter your phone number'/>
+            <input className="input w-full relative p-2  capitalize" type="tel" name="phone" required placeholder='Enter your phone number'/>
             {formErrors?.phone && (
               <p className="mt-2 rounded-md bg-red-100 p-2 text-xs text-red-700">
                 {formErrors.phone}
@@ -123,11 +144,11 @@ const isValidPhone = (str:string) =>
           </div>
         </div>
 
-        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center relative">
-          <label className="sm:basis-40">Address</label>
+        <div className=" flex flex-col gap-2 sm:flex-row sm:items-center relative">
+          <label className="sm:basis-40 text-left">Address :</label>
           <div className="grow">
             <input
-              className="input w-full"
+              className="input w-full !relative p-2  capitalize"
               type="text"
               name="address"
               required
@@ -143,26 +164,42 @@ const isValidPhone = (str:string) =>
           </div>
           
           {position&&!position.latitude && !position.longitude&&
-          <span className='absolute right-[3px] z-10 top-[3px] sm:right-[5px] md:top-[5px]' >
-        <Button disabled={isLOadingAddress} type='small'  onClick={(e)=>{
+          <span className='absolute bottom-1  right-[2px] z-10 sm:bottom-[2px]' >
+        <button className='bg-yellow-400 py-1 px-3   text-sm sm:py-2 rounded-lg sm:rounded-xl font-semibold uppercase tracking-wide text-stone-800 transition-colors duration-300 hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed' disabled={isLOadingAddress}  onClick={(e)=>{
           e.preventDefault();
-          dispatch(fetchAddress())}}>Get Position</Button>
+          dispatch(fetchAddress())}}>Get Position</button>
           </span>}
         </div>
-
-        <div className="mb-12 flex items-center gap-5">
+          
+        <div className=" flex flex-col gap-2 sm:flex-row sm:items-center">
+          <label className="sm:basis-40 text-left">Order Pin :</label>
+          <div className="grow">
+            <input className="input w-full relative p-2 text-base capitalize" type="text" name="orderPin" required placeholder='Set the order pin'/>
+            {formErrors?.orderPin && (
+              <p className="mt-2 rounded-md bg-red-100 p-2 text-xs text-red-700">
+                {formErrors.orderPin}
+              </p>
+            )}
+          </div>
+        </div>
+          
+          
+        <div className="mb-2 sm:mb-5 lg:mb-9   flex items-center gap-3 sm:gap-5">
           <input
-            className="h-6 w-6 accent-yellow-400 focus:outline-none focus:ring focus:ring-yellow-400 focus:ring-offset-2"
+            className="h-4 w-4 sm:h-6 sm:w-6 accent-yellow-400 focus:outline-none focus:ring focus:ring-yellow-400 focus:ring-offset-2"
             type="checkbox"
             name="priority"
             id="priority"
             value={withPriority as unknown as string}
             onChange={(e) => setWithPriority(e.target.checked)}
           />
-          <label htmlFor="priority" className="font-medium">
+          <label htmlFor="priority" className="font-medium text-left">
             Want to yo give your order priority?
           </label>
         </div>
+        
+        
+
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />

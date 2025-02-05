@@ -6,6 +6,7 @@ import { initialUserState } from '../../users/userSlice';
 import { newOrderInterface } from './CreateOrder';
 import OrderFilterBy from './OrderFilterBy';
 import OrderSortBy from './OrderSortBy';
+import '../../../index.css';
 
 
 export interface o extends newOrderInterface{
@@ -80,9 +81,10 @@ export default function MyOrders() {
     
     
   return (
-    <div className='flex flex-col justify-center items-center gap-3 !w-full mt-1 bg-gray-200 px-3 pt-5'>
-        <div className='flex justify-between w-full py-2'>
-            <h1 className='capitalize text-3xl mb-3 pl-5'>My orders</h1>
+    <div className='py-1 w-full h-full flex justify-center items-start !min-h-full'>
+    <div className='flex flex-col h-full justify-start items-center gap-3 !z-30 !w-full !max-w-screen-lg bg-gray-200 px-2 sm:px-3 pt-4 sm:pt-10'>
+        <div className='flex flex-col sm:flex-row justify-between w-full py-2'>
+            <h1 className='capitalize text-xl sm:text-3xl mb-3 pl-0 sm:pl-5 text-left'>My orders</h1>
             <div className='flex gap-1'>
                 
             <OrderFilterBy></OrderFilterBy>
@@ -90,34 +92,37 @@ export default function MyOrders() {
             </div>
         </div>
         {/* <div className=' flex justify-evenly items-start border-black border-y-[1px] gap-8 px-2 py-4 w-full font-semibold'> */}
-        <div className=' grid grid-cols-7 border-black border-y-[1px] px-2 py-4 w-full font-semibold'>
+        {/* <div className='text-xs sm:text-base grid-cols-5 grid min-[500px]:grid-cols-7 border-black border-y-[1px]  sm:px-2 py-3 sm:py-4 w-full font-semibold'> */}
+        <div className='text-xs min-[500px]:text-sm sm:text-base grid-cols-5 grid sm:grid-cols-6 md:grid-cols-7 border-black border-y-[1px]  sm:px-2 py-3 sm:py-4 w-full font-semibold'>
             <span className='capitalize w-full flex justify-center items-center'>Order Id</span>
             <span className='capitalize w-full col-span-2 flex justify-center items-center '>Estimated delivery</span>
-            <span className='capitalize w-full flex justify-center items-center'>Customer name</span>
-            <span className='capitalize w-full flex justify-center items-center'>No. of Pizza</span>
+            <span className='hidden md:flex capitalize w-full  justify-center items-center'>Customer name</span>
+            <span className='hidden capitalize w-full sm:flex justify-center items-center'>No. of Pizza</span>
             <span className='capitalize w-full flex justify-center items-center'>Total price</span>
             {/* <span className='capitalize w-full flex justify-center items-center'>order status</span> */}
             <span className='capitalize w-full flex justify-center items-center'>view details</span>
         </div>
-        <div className='flex flex-col justify-center items-center !w-full gap-3'>
+        {/* <div className='flex flex-col justify-start items-center !w-full gap-3 !max-h-[440px] overflow-y-scroll custom-scroll'> */}
+        <div className='text-xs min-[500px]:text-sm sm:text-base flex flex-col justify-start items-center !w-full gap-3 overflow-y-scroll custom-scroll'>
             
         {
             sortedOrders&&sortedOrders.map((order)=>(
                 // <ul className='flex justify-center items-center gap-8 rounded-md !w-full flex-grow border-b-[1px] border-gray-300 py-1' key={order.id}>
-                <ul className='grid grid-cols-7 rounded-md !w-full border-b-[1px] border-gray-300 py-1' key={order.id}>
+                <ul className='grid grid-cols-5 sm:grid-cols-6 md:grid-cols-7 rounded-md !w-full border-b-[1px] border-gray-300 py-1' key={order.id}>
             
             <span className='capitalize w-full flex justify-center items-center'>{order.id}</span>
             <span className='capitalize w-full col-span-2 flex justify-center items-center '>{new Date(order.estimatedDelivery).toLocaleString()}</span>
-            <span className='capitalize w-full flex justify-center items-center '>{order.customer}</span>
-            <span className='capitalize w-full flex justify-center items-center '>{order.cart.length}</span>
+            <span className='hidden md:flex capitalize w-full justify-center items-center '>{order.customer}</span>
+            <span className='capitalize w-full hidden sm:flex justify-center items-center '>{order.cart.length}</span>
             <span className='capitalize w-full flex justify-center items-center'>{order.orderPrice}</span>
             {/* <span className='capitalize w-full flex justify-center items-center'>{order.status}</span> */}
-            <button className='capitalize w-full text-blue-600 flex justify-center items-center' onClick={(e)=>{e.preventDefault();handleClick(order.id);}}>view details ➡️</button>
+            <button className='capitalize w-full text-blue-600 flex justify-center items-center' onClick={(e)=>{e.preventDefault();handleClick(order.id);}}>view details</button>
         </ul>
                 
                 ))
             }
             </div>
+    </div>
     </div>
   )
 }

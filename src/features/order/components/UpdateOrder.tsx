@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateOrder } from "../../../apis/apiRestaurant";
+import { useUiContext } from "../../../contexts/UiContexts";
 import Button from "../../../UiComponents/Button";
 import { finalOrderInterface } from "./CreateOrder";
 
@@ -12,20 +13,21 @@ function UpdateOrder({order}:UpdateOrderProps) {
     
     
     
-    async function handleClick(e:React.MouseEvent<HTMLButtonElement>) {
-        const currentTime=new Date();
-        const estimatedDeliveryTime = new Date(order.estimatedDelivery);
-        const orderCreationTime=new Date(order.created_at);
-        const halfTimeInterval = new Date(orderCreationTime.getTime()+((estimatedDeliveryTime.getTime() - orderCreationTime.getTime()) / 2));
-        const timeRemaining = halfTimeInterval.getTime()-currentTime.getTime();
-        console.log("[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*",timeRemaining);
-        if (timeRemaining > 0&&order.status==="preparing") {
-            order=await updateOrder(order.id,{priority:true});
-            return navigate(`/order/${order.id}`);
-        }
-    }
+    // async function handleClick(e:React.MouseEvent<HTMLButtonElement>) {
+    //     const currentTime=new Date();
+    //     const estimatedDeliveryTime = new Date(order.estimatedDelivery);
+    //     const orderCreationTime=new Date(order.created_at);
+    //     const halfTimeInterval = new Date(orderCreationTime.getTime()+((estimatedDeliveryTime.getTime() - orderCreationTime.getTime()) / 2));
+    //     const timeRemaining = halfTimeInterval.getTime()-currentTime.getTime();
+    //     console.log("[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*[]~(￣▽￣)~*",timeRemaining);
+    //     if (timeRemaining > 0&&order.status==="preparing") {
+    //         order=await updateOrder(order.id,{priority:true});
+    //         return navigate(`/order/${order.id}`);
+    //     }
+    // }
     
-    const [canUpdate,setCanUpdate] =useState<boolean>(false);
+    // const [canUpdate,setCanUpdate] =useState<boolean>(false);
+    const {canCancel,canUpdate,setCanUpdate,setSelectedEditOrder,setEditAction,setIsRegularModalOpen} = useUiContext();
     
     useEffect(() => {
         const currentTime=new Date();
@@ -51,9 +53,24 @@ function UpdateOrder({order}:UpdateOrderProps) {
         }
     }, [order.estimatedDelivery]);
     
-    if(!order||!canUpdate)  return null;
     
-    return <Button type='primary' disabled={!canUpdate} onClick={handleClick}>Make priority</Button>
+    async function handleClick() {
+        if (canUpdate) {
+          setEditAction('update');
+          setSelectedEditOrder(order.id);
+          setIsRegularModalOpen(true);
+          
+          // await updateOrderStatus(order.id, "cancelled");
+          // navigate(`/order/${order.id}`);
+        }
+        //   setEditAction(null);
+        // setSelectedEditOrder(null);
+        // }
+      }
+    
+    if(!order||!canUpdate||!canCancel)  return null;
+    
+    return <button className="bg-yellow-400 flex justify-center items-center text-sm py-1 px-4 rounded-lg min-[425px]:text-base md:text-lg md:px-6   text-stone-800 transition-colors duration-300 hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed" disabled={!canUpdate} onClick={handleClick}>Make priority</button>
         
         
 }

@@ -8,10 +8,12 @@ import store from './store'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Toaster position='top-center'/>
     <Provider store={store}>
-      
+      <div className=''>
+    <Toaster position='top-center'/>
+        
     <App />
+      </div>
     </Provider>
   </StrictMode>,
 )

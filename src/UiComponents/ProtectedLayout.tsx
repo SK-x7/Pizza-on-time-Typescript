@@ -1,10 +1,5 @@
 import { useEffect } from 'react';
-import { toast } from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { supabase } from '../apis/apiRestaurant';
-import CartOverview from '../features/cart/components/CartOverview';
-import { updateUser } from '../features/users/userSlice';
+import { Outlet, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import Header from './Header';
 // import { supabase } from './apis/apiRestaurant';
@@ -83,11 +78,29 @@ function ProtectedLayout() {
   // }, [location.pathname])
 
   return (
-    <main className='max-w-screen-lg mx-auto !flex flex-1 justify-center items-center !bg-red-400'>
-      <Outlet /> {/* This is where child routes (like Home or Menu) will be rendered */}
-    </main>
-    );
+    // <div className='text-center !min-h-screen !h-screen !max-h-screen flex flex-col items-center w-full' >
+    <div className='text-center min-h-screen h-screen grid grid-rows-[1fr_99fr] grid-cols-1  !items-center justify-center gap-0' >
+      <Header></Header>
+      {/* <div className='!h-full !min-h-full w-full !bg-yellow-100/75 !flex !flex-1'> */}
+      <div className='!h-full overflow-y-hidden !bg-yellow-100/75 !flex !flex-1'>
+        
+      {/* <div className=' w-full  h-full !min-h-full mx-auto !flex !justify-center py-1 flex-1'> */}
+      <div className='  h-full mx-auto !flex !justify-center py-1 w-full'>
+    <Outlet/>
     
+      </div>
+        
+      </div>
+    </div>
+    // <main className=' mx-auto flex  justify-center items-start !w-full !h-full !max-h-full'>
+    // {/* <main className=' mx-auto justify-center items-center !w-full !h-full bg-black'> */}
+    // {/* <div className='!bg-yellow-100/75 w-full mx-auto !flex justify-center items-center !h-full !max-h-full'> */}
+
+    //   <Outlet /> {/* This is where child routes (like Home or Menu) will be rendered */}
+    //   {/* </div> */}
+    // </main>
+    );
+  
     
     
     

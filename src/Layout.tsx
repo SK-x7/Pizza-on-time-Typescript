@@ -1,16 +1,11 @@
-import { useEffect } from 'react';
-import { toast } from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { supabase } from './apis/apiRestaurant';
+import { Outlet } from 'react-router-dom';
 import CartOverview from './features/cart/components/CartOverview';
-import { updateUser } from './features/users/userSlice';
 import Header from './UiComponents/Header';
 
 
 interface UserInterface {
   id: number;
-  user_id: string;
+  user_id: string;  
   username?: string;
   created_at: string;
 }
@@ -67,16 +62,23 @@ function Layout() {
   // }, [location.pathname])
 
   return (
-    <div className=" !h-screen grid grid-rows-[auto_1fr_auto]">
-      <Header />
-      <div className="overflow-y-scroll flex flex-1 w-full">
-        <main className=" mx-auto h-full w-full !max-h-full">
-          <Outlet />
-        </main>
-      </div>
-      <CartOverview />
+    <div className='!p-0 !m-0'>
+      
+    <Outlet />
     </div>
     );
+    // <div className=" !h-screen grid grid-rows-[auto_1fr_auto] bg-black">
+    // <div className=" !h-screen grid grid-rows-[auto_1fr_auto] bg-red-500">
+    // <div className="flex flex-col !min-h-screen">
+      {/* <Header /> */}
+      {/* <div className="flex flex-1 w-full"> */}
+        {/* <main className="mx-auto  w-full"> */}
+          // <Outlet />
+        {/* </main> */}
+      {/* </div> */}
+      {/* <CartOverview /> */}
+    {/* </div> */}
+    {/* </div> */}
     {/* This is where child routes (like Home or Menu) will be rendered */}
     // <div className='h-screen grid grid-rows-[auto_1fr_auto] '>
       {/* <Header /> */}

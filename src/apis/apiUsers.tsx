@@ -1,10 +1,11 @@
-import { createClient, PostgrestError } from "@supabase/supabase-js";
+// import { createClient, PostgrestError } from "@supabase/supabase-js";
 import {toast} from "react-hot-toast"
 import { redirect } from "react-router-dom";
+import { supabase } from "./supabase";
 
-let SUPABASE_PROJECT_URL = import.meta.env.VITE_SUPABASE_URL;
-let SUPABASE_API_KEY = import.meta.env.VITE_SUPABASE_APIKEY;
-export const supabase = createClient(SUPABASE_PROJECT_URL, SUPABASE_API_KEY)
+// let SUPABASE_PROJECT_URL = import.meta.env.VITE_SUPABASE_URL;
+// let SUPABASE_API_KEY = import.meta.env.VITE_SUPABASE_APIKEY;
+// export const supabase = createClient(SUPABASE_PROJECT_URL, SUPABASE_API_KEY)
 
   export interface signupFormDataInterface{
     email: string;
@@ -27,6 +28,10 @@ let { data, error } = await supabase.auth.signUp({
   password: obj.password
 })
 
+
+
+console.log(data);
+localStorage.setItem("data",JSON.stringify(data));
 const user=data.user;
 const session=data.session;
 

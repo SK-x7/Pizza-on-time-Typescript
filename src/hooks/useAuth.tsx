@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../apis/apiRestaurant";
+import { supabase } from "../apis/supabase";
+import { useUiContext } from "../contexts/UiContexts";
+// import { supabase } from "../apis/apiRestaurant";
 import { handleUserAuthentication, updateUser } from "../features/users/userSlice";
 
 export interface UserInterface {
@@ -15,6 +17,7 @@ export interface UserInterface {
 function useAuth(){
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {setUser_id} = useUiContext();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean|null>(null);
 
   async function checkUserSession() {
@@ -28,6 +31,8 @@ function useAuth(){
         console.error('Session restore error:', error.message);
         toast.error(error.message);
         localStorage.removeItem('supabaseSession');
+        localStorage.removeItem('user_id')
+        setUser_id(null)
         setIsAuthenticated(false);
         // navigate("/");
       } else if (session) {
@@ -45,12 +50,15 @@ function useAuth(){
         if(user.username){
           dispatch(updateUser(user));
           localStorage.setItem("user_id",user.user_id);
+          setUser_id(user.user_id);
         };
         // window.location.href = '/menu'; // Redirect if valid
       }
     } else {
       toast.error("NO session lol")
+      localStorage.removeItem("user_id");
       localStorage.removeItem('supabaseSession');
+      setUser_id(null)
       setIsAuthenticated(false);
     // return navigate("/");
 

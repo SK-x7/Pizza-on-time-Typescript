@@ -20,7 +20,7 @@ function RegularModal({children,onClose}:{onClose:()=>void,children:ReactNode}) 
 
     
     return createPortal(
-        <div className="fixed top-0 left-0 w-full h-screen z-[2000] bg-[#272727]/10      transition-all duration-500" onClick={
+        <div className="fixed top-0 left-0 w-full h-screen z-[2000] bg-[#272727]/10     transition-all duration-500" onClick={
             (e)=>{closeModal(e)}
         }>
         <div className="fixed top-1/2 left-1/2 bg-white rounded-lg shadow-lg px-[1rem] pt-[1.5rem] pb-[1rem] -translate-x-1/2 -translate-y-1/2 transition-all duration-500" ref={ref}>

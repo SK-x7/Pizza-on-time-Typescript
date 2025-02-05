@@ -38,18 +38,18 @@ export default function CustomizeOrder({allIngredients,ingredients,id}:{allIngre
     }
     
   return (
-    <div className=' max-w-screen-sm w-80 flex flex-col h-96 justify-between'>
-        <h1 className='h-1/6 flex justify-center items-center text-lg bg-yellow-400 rounded-lg capitalize'>Customize all Ingredients</h1>
+    <div className=' max-w-screen-sm !w-60 sm:!w-80 flex flex-col h-72 sm:h-96 justify-between'>
+        <h1 className='h-1/6 flex justify-center items-center text-base sm:text-lg bg-yellow-400 rounded-lg capitalize'>Customize all Ingredients</h1>
         {/* <div className='flex flex-col justify-start items-center'> */}
             {/* <h2>allIngredients</h2> */}
-            <form onSubmit={handleSubmit} className='flex flex-col h-5/6 w-full gap-2 justify-between'>
+            <form onSubmit={handleSubmit} className='flex flex-col h-5/6 w-full gap-2 justify-between text-sm sm:text-base'>
                     <div className='overflow-y-scroll overflow-x-hidden h-[90%] w-full bg-slate-300 rounded-xl px-1 divide-y-2 mt-2'>
                 {
                         
                     allIngredients.map((ingredient)=>(
                         // <input value={ingredient} type="checkbox"/>
                         
-                        <div className=" flex items-center gap-5 justify-between px-2 py-1">
+                        <div className=" flex items-center gap-5 justify-between px-2 py-1" key={ingredient}>
                         <label htmlFor="priority" className="font-medium capitalize">
                           {ingredient}
                         </label>
@@ -70,8 +70,8 @@ export default function CustomizeOrder({allIngredients,ingredients,id}:{allIngre
                 }
                           </div>
                           <div className='h-[10%] flex justify-end gap-1'>
-                            <Button type='small' onClick={()=>{setAddRemoveIngredients([]); toggleModel();}}>Cancel</Button>
-                            <Button type='small'>Save</Button>
+                            <button className='text-xs sm:text-sm py-1 px-3 sm:px-4 bg-yellow-400 flex justify-center items-center rounded-xl' onClick={()=>{setAddRemoveIngredients([]); toggleModel();}}>Cancel</button>
+                            <button className='text-xs sm:text-sm py-1 px-3 sm:px-4 bg-yellow-400 flex justify-center items-center rounded-xl' >Save</button>
                           </div>
             </form>
         </div>

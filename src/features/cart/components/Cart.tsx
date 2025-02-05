@@ -6,6 +6,7 @@ import {useSelector,useDispatch} from "react-redux"
 import { clearCart, getCart } from '../cartSlice';
 import { getUserName } from '../../users/userSlice';
 import EmptyCart from './EmptyCart';
+import { Link } from 'react-router-dom';
 // import CartItem from './CartItem';
 
 // const fakeCart = [
@@ -42,23 +43,23 @@ function Cart() {
 
 
   return (
-    <div className="px-4 py-3">
+    <div className="px-4 py-3 max-w-screen-lg !w-full flex flex-col justify-start items-start !h-full bg-gray-200">
       <LinkButton to="/menu">&larr; Back to menu</LinkButton>
 
       <h2 className="mt-7 text-xl font-semibold">Your cart,{username}</h2>
 
-      <ul className="mt-3 divide-y divide-stone-200 border-b">
+      <ul className="mt-3 divide-y divide-gray-300 border-b w-full overflow-y-scroll border-t border-t-gray-600 px-2 py-1 ">
         {cart.map((item:itemInCart) => (
           <CartItem item={item} key={item.id} />
         ))}
       </ul>
 
-      <div className="mt-6 space-x-2">
-        <Button to="/order/new" type="primary">
+      <div className="mt-3 md:mt-6 space-x-2 flex">
+        <Link to="/order/new" className='text-xs py-2 px-3 min-[375px]:px-3  rounded-xl flex justify-center items-center   min-[425px]:px-4 min-[425px]:text-sm sm:py-2 sm:text-base    xl:rounded-2xl bg-yellow-400 font-semibold uppercase tracking-wide text-stone-800 transition-colors duration-300 hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed'>
           Order pizzas
-        </Button>
+        </Link>
 
-        <Button type="secondary" onClick={handleClearCart}>Clear cart</Button>
+        <button className='text-xs py-2 px-3 min-[375px]:px-3  rounded-xl flex justify-center items-center   min-[425px]:px-4 min-[425px]:text-sm sm:py-2 sm:text-base    xl:rounded-2xl border-2 border-stone-300 font-semibold uppercase tracking-wide text-stone-600 transition-colors duration-300 hover:bg-stone-300 hover:text-stone-800 focus:bg-stone-300 focus:text-stone-800 focus:outline-none focus:ring focus:ring-stone-200 focus:ring-offset-2 disabled:cursor-not-allowed' onClick={handleClearCart}>Clear cart</button>
       </div>
     </div>
   );
