@@ -106,10 +106,9 @@
 // }
 
 // export default App;
-import React from 'react';
 import { createBrowserRouter, RouterProvider} from 'react-router-dom';
-import Layout from './Layout';
-import Home from './UiComponents/Home';
+// import Layout from './Layout';
+import Home from './UiComponents/Home.tsx';
 import Error from './UiComponents/Error';
 import Cart from './features/cart/components/Cart';
 import Menu, { fetchMenuFromApi } from './features/menu/components/Menu';
@@ -126,6 +125,7 @@ import AuthLayout from './UiComponents/AuthLayout';
 import ProtectedLayout from './UiComponents/ProtectedLayout';
 import PublicLayout from './UiComponents/PublicLayout';
 import MenuPage from './UiComponents/MenuPage';
+import Layout from './Layout.js';
 
 // Create the router with routes and loaders
 const router = createBrowserRouter([
