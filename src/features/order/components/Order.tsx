@@ -116,13 +116,19 @@ function Order() {
       {/* <div className="flex flex-wrap items-center justify-between gap-2 bg-stone-200 px-6 py-5"> */}
       <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-2 px-3 sm:px-6 py-3 sm:py-5 bg-gray-300">
         <p className="font-medium text-sm sm:text-base">
-          {deliveryIn >= 0
-            ? `Only ${calcMinutesLeft(estimatedDelivery)} minutes left 😃`
-            : 'Order should have arrived'}
+          {
+            order.status==="cancelled" ?"Your order has been cancelled" :
+          deliveryIn >= 0? `Only ${calcMinutesLeft(estimatedDelivery)} minutes left 😃`
+          : 'Order should have arrived'
+        }
         </p>
-        <p className="text-xs text-stone-500">
+        {
+          order.status !== "cancelled" && order.status !== "delivered" ? 
+          <p className="text-xs text-stone-500">
           (Estimated delivery: {formatDate(estimatedDelivery)})
         </p>
+          :null
+        }
       </div>
 
       <ul className="dive-stone-200 divide-y divide-gray-200 border-b border-t  overflow-y-scroll h-20 custom-scroll bg-gray-200">
@@ -183,7 +189,8 @@ export async function loader({ params }:LoaderFunctionArgs) {
   console.log(params.orderId);
   const order = await getOrder(params.orderId as string);
   console.log(order,"2️⃣");
-  if (new Date(order.estimatedDelivery) < new Date() && order.status !== 'delivered') {
+  // if (new Date(order.estimatedDelivery) < new Date() && order.status !== 'delivered') {
+  if (new Date(order.estimatedDelivery) < new Date() && order.status === 'preparing') {
     // Send an update request to Supabase
     console.log("inside if");
     return await updateOrderStatus(order.id,"delivered");
