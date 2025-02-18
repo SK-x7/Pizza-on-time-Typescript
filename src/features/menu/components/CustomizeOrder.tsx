@@ -5,23 +5,18 @@ import { useUiContext } from '../../../contexts/UiContexts';
 import { updateIngredientsOfItem } from '../../cart/cartSlice';
 
 export default function CustomizeOrder({allIngredients,ingredients,id}:{allIngredients:string[],ingredients:string[],id:number}) {
-    console.log(id);
     const {toggleModel}=useUiContext();
     const dispatch=useDispatch();
     const [addRemoveIngredients,setAddRemoveIngredients]=useState<string[]>(ingredients);
     function handleSubmit(e:FormEvent) {
         e.preventDefault();
-        console.log(addRemoveIngredients);
         if(addRemoveIngredients.length<2){
             toast.error("Atleast two ingredients must be specified");
             return;
         }
-        console.log(id);
-        // console.log(formdata.values);
         dispatch(updateIngredientsOfItem({id,addRemoveIngredients}));
         setAddRemoveIngredients([]);
         toggleModel();
-        console.log("submiteddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
     }
     
     function handleChange(e:ChangeEvent<HTMLInputElement>) {
@@ -32,7 +27,6 @@ export default function CustomizeOrder({allIngredients,ingredients,id}:{allIngre
         else {
             setAddRemoveIngredients(addRemoveIngredients.filter(ingredient => ingredient !== e.target.value));
         }
-        console.log("changed",addRemoveIngredients);    
     }
     
   return (

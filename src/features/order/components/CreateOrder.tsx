@@ -7,14 +7,11 @@ import { AppDispatch, RootState } from "../../../store";
 import Button from '../../../UiComponents/Button';
 import { getCart, getTotalCartPrice } from "../../cart/cartSlice";
 import EmptyCart from "../../cart/components/EmptyCart";
-// import { formatCurrency } from '../../utilities/helpers';
 import bcrypt from 'bcryptjs';
 import { getEstimatedDeliveryTime } from '../../../utils/helpers';
 import { itemInCart } from '../../cart/components/CartItem';
 import { fetchAddress, getUserId, getUserName } from '../../users/userSlice';
-// import Button from '../../ui/Button';
 
-// https://uibakery.io/regex-library/phone-number
 
   
   
@@ -104,7 +101,6 @@ import { fetchAddress, getUserId, getUserName } from '../../users/userSlice';
         estimatedDelivery,
       }
       tempPass = undefined;
-      console.log(data);
       return await createOrder(data,totalCartPrice);
     }
 
@@ -114,7 +110,6 @@ import { fetchAddress, getUserId, getUserName } from '../../users/userSlice';
     <div className="px-4 py-4 sm:py-6 !text-sm sm:!text-base w-full max-w-screen-md ">
       <h2 className="mb-4 sm:mb-8 text-xl font-semibold">Ready to order? Let's go!</h2>
 
-      {/* <Form method="POST" action="/order/new"> */}
       <form onSubmit={handleFormSubmit} className="flex flex-col gap-5">
         <div className=" flex flex-col gap-2 sm:flex-row sm:items-center">
           <label className="text-left sm:basis-40">First Name :</label>

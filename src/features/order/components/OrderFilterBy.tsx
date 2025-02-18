@@ -19,7 +19,6 @@ const filterByValues=[
 export default function OrderFilterBy() {
     const [searchParams, setSearchParams] = useSearchParams();
     const currentFilter = searchParams.get("status")||"all";
-    console.log(currentFilter)
     function handleSelectedFilter(value:string) {
         if(!value)  return;
         searchParams.set("status",value);

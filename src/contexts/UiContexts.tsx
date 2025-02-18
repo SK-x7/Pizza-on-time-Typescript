@@ -25,17 +25,13 @@ const UiContext=createContext<UiContextType|undefined>(undefined);
 
 function UiProvider({children}:{children:ReactNode}) {
     const [isRegularModalOpen,setIsRegularModalOpen]=useState<boolean>(false);
-    // const [isRegularModalOpen,setIsRegularModalOpen]=useState<boolean>(true);
     function toggleModel():void {
         setIsRegularModalOpen(!isRegularModalOpen);
     }
     
     const [selectedPizza, setSelectedPizza] = useState<MenuItem | null>(null);
-    // const [selectedEditOrder, setSelectedEditOrder] = useState<number|null>(73);
-    // const [editAction, setEditAction] = useState<"cancel"|"update"|null>("cancel");
-    // const [selectedEditOrder, setSelectedEditOrder] = useState<number|null>(82);
+    
     const [selectedEditOrder, setSelectedEditOrder] = useState<number|null>(null);
-    // const [editAction, setEditAction] = useState<"cancel"|"update"|null>("cancel");
     const [editAction, setEditAction] = useState<"cancel"|"update"|null>(null);
     const [user_id, setUser_id] = useState<string|null>(null);
     

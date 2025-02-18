@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { getUserName } from '../../users/userSlice';
 import { clearCart, getCart } from '../cartSlice';
 import EmptyCart from './EmptyCart';
-// import CartItem from './CartItem';
 
 // const fakeCart = [
 //   {

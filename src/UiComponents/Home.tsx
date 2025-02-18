@@ -39,7 +39,6 @@ function Home() {
           </Link>
         </div>
     </div>
-      {/* <div className="w-full sm:w-1/2 lg:flex-1 h-0 min-[420px]:flex  min-[425px]:flex-1 sm:!h-full sm:flex-wrap hidden justify-end items-start"> */}
       <div className="w-full sm:w-1/2 lg:flex-1 h-0 sm:flex sm:!h-full sm:flex-wrap hidden justify-end items-start">
         
       <img className=" !object-contain h-1/2 md:h-full lg:object-contain" src="/76745d89868413.5e04311b1b5f4-removebg-preview.png"/>

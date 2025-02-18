@@ -10,16 +10,4 @@ export interface MenuItem{
     
   }
   
-  // export interface menu{
-    
-  //     id: number,
-  //     created_at: Date,
-  //     name: Margherita",
-  //     unitPrice: number,
-  //     imageUrl: string,
-  //     ingredients: string[];
-  //     soldOut: false;
-  //     allIngredients: string[];
-
-  
-  // }
+ 

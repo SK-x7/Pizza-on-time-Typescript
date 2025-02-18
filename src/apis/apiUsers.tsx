@@ -3,9 +3,7 @@ import {toast} from "react-hot-toast"
 import { redirect } from "react-router-dom";
 import { supabase } from "./supabase";
 
-// let SUPABASE_PROJECT_URL = import.meta.env.VITE_SUPABASE_URL;
-// let SUPABASE_API_KEY = import.meta.env.VITE_SUPABASE_APIKEY;
-// export const supabase = createClient(SUPABASE_PROJECT_URL, SUPABASE_API_KEY)
+
 
   export interface signupFormDataInterface{
     email: string;
@@ -30,7 +28,6 @@ const { data, error } = await supabase.auth.signUp({
 
 
 
-console.log(data);
 localStorage.setItem("data",JSON.stringify(data));
 const user=data.user;
 const session=data.session;
@@ -43,7 +40,7 @@ const session=data.session;
     
     return;
   }
-  console.log(user);
+  
   
   const { data:userCreated, error:err } = await supabase
   .from('users')
@@ -72,14 +69,11 @@ export async function loginUser(obj:loginFormDataInterface) {
     toast.error(error.message);
     return false;
   }
-  if(data){
-    console.log(data);
-  }
-  if(data.session){
+  
+  if(data?.session){
       toast.success("Login successful✔️✔️");
       localStorage.setItem('supabaseSession', JSON.stringify(data.session));
       return true;
-      return redirect("/menu");
   }
 }
 

@@ -7,23 +7,12 @@ import { isUserAuthenticated } from "../features/users/userSlice";
 
 
 export default function Header() {
-  // const location=useLocation();
-  // console.log(location.pathname);
-  // const {isAuthenticated} = useAuth();
-  // const [isLoggedIn,setIsLoggedIn] = useState<boolean>();
-  // useEffect(()=>{
-  //   if(isAuthenticated===true){
-  //     setIsLoggedIn(true)
-  //   }else{
-  //     setIsLoggedIn(false)
-  //   }
-  // },[isAuthenticated,isLoggedIn])
   const isAuthenticated = useSelector(isUserAuthenticated);
   
   return (
     <>
     {
-      // !isLoggedIn?<PublicHeader></PublicHeader>:<HeaderForAuthenticated></HeaderForAuthenticated>
+      
       !isAuthenticated?<PublicHeader></PublicHeader>:<HeaderForAuthenticated></HeaderForAuthenticated>
     }
     </>
@@ -32,11 +21,9 @@ export default function Header() {
 
 function PublicHeader() {
   const location = useLocation();
-  // return <div className="bg-transparent !h-14 !sticky !top-0 flex justify-between items-center px-6 py-3 w-full" onClick={()=>getMenuFromSupabase()}>
   return <div className="bg-yellow-400 h-12 !sm:h-14 sticky !top-0 z-50 flex justify-between items-center 
   px-2 sm:px-6 py-3 !w-full" onClick={()=>getMenuFromSupabase()}>
         <Link to="/" className="text-sm sm:text-base">Pizza-On-Time Co.</Link>
-        {/* <SearchOrder></SearchOrder> */}
         <div className="flex gap-1 sm:gap-4  sm:px-3">
           <Link className="uppercase text-xs sm:text-sm font-semibold " to={'/menu'}>Menu</Link>
           <span className="uppercase text-xs sm:text-sm font-semibold">|</span>
@@ -63,7 +50,6 @@ function HeaderForAuthenticated() {
   <Link className="uppercase text-xs sm:text-sm font-semibold " to={'/menu'}>Menu</Link>
     }
   <span className="uppercase text-xs sm:text-sm font-semibold">|</span>
-  {/* <span className="uppercase text-sm font-semibold">satyen</span> */}
   <Username></Username>
   </div>
 

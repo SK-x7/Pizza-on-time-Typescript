@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import { builders } from "prettier/doc";
 import {getAddress} from "../../apis/apiGeocoding"
 
 
