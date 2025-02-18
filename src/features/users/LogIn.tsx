@@ -87,7 +87,7 @@ import { handleUserAuthentication } from './userSlice';
           {/* <h1 className='capitalize text-4xl'>welcome to pizza-on-time co.</h1>
           <p className='text-left text-base w-3/4'>"Craving pizza? [Your Website Name] brings fresh, hot, and delicious pizzas right to your door. Customize your favorite flavors and enjoy fast delivery with just a few clicks. Your perfect slice is just an order away!"</p>
         */}
-        <img className='object-contain h-full' src='../../../public/76745d89868413.5e04311b1b5f4-removebg-preview.png'/>
+        <img className='object-contain h-full' src='/76745d89868413.5e04311b1b5f4-removebg-preview.png'/>
         </div> 
     </div>
   );

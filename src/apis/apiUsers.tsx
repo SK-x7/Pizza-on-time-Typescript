@@ -23,7 +23,7 @@ export async function signUser(obj:signupFormDataInterface) {
     
   
     
-let { data, error } = await supabase.auth.signUp({
+const { data, error } = await supabase.auth.signUp({
   email: obj.email,
   password: obj.password
 })
@@ -67,7 +67,7 @@ const session=data.session;
 }
 
 export async function loginUser(obj:loginFormDataInterface) {
-  let {data,error}=await supabase.auth.signInWithPassword(obj);
+  const {data,error}=await supabase.auth.signInWithPassword(obj);
   if(error) {
     toast.error(error.message);
     return false;
@@ -84,7 +84,7 @@ export async function loginUser(obj:loginFormDataInterface) {
 }
 
 export async function logoutUser() {
-  let { error } = await supabase.auth.signOut()
+  const { error } = await supabase.auth.signOut()
   if(error) {
     toast.error(error.message);
     

@@ -57,20 +57,20 @@ import Button from '../../UiComponents/Button';
              w-5/6 sm:w-3/4  px-5 ring-1 ring-green-600 flex-col justify-evenly  border rounded-xl'> */}
               <h1 className="capitalize text-lg sm:text-xl font-semibold text-green-600 my-2">Create your account</h1>
        <div className="mb-3 sm:mb-5 flex flex-col gap-0 sm:flex-row sm:items-center text-sm lg:text-base">
-           <input className="input grow p-2 ring-1 ring-green-400 rounded-xl" type="text" name="username" defaultValue="test" required placeholder='Enter your name'/>
+           <input className="input grow p-2 ring-1 ring-green-400 rounded-xl" type="text" name="username" required placeholder='Enter your name'/>
          </div>
            {/* <label className="sm:basis-40">Username</label> */}
        <div className="mb-3 sm:mb-5 flex flex-col gap-0 sm:flex-row sm:items-center text-sm lg:text-base">
            {/* <label className="sm:basis-40">Email :</label> */}
-           <input className="input grow p-2 ring-1 ring-green-400  rounded-xl" type="email" name="email" defaultValue="test@gmail.com" required placeholder='Enter your email'/>
+           <input className="input grow p-2 ring-1 ring-green-400  rounded-xl" type="email" name="email" required placeholder='Enter your email'/>
          </div>
        <div className="mb-3 sm:mb-5 flex flex-col gap-0 sm:flex-row sm:items-center text-sm lg:text-base">
            {/* <label className="sm:basis-40">Email :</label> */}
-           <input className="input grow p-2 ring-1 ring-green-400  rounded-xl" type="password" name="password" defaultValue="test12" required placeholder='Enter Password'/>
+           <input className="input grow p-2 ring-1 ring-green-400  rounded-xl" type="password" name="password" required placeholder='Enter Password'/>
          </div>
        <div className="mb-3 md:mb-5 flex flex-col gap-0 sm:flex-row sm:items-center text-sm lg:text-base">
            {/* <label className="sm:basis-40">Email :</label> */}
-           <input className="input grow p-2 ring-1 ring-green-400  rounded-xl" type="password" name="verifyPassword" defaultValue="test12" required placeholder='Verify Password:Re-Enter Password'/>
+           <input className="input grow p-2 ring-1 ring-green-400  rounded-xl" type="password" name="verifyPassword" required placeholder='Verify Password:Re-Enter Password'/>
          </div>
          <Button  type="small" >
              Sign-up now
@@ -92,7 +92,7 @@ import Button from '../../UiComponents/Button';
           {/* <h1 className='capitalize text-4xl'>welcome to pizza-on-time co.</h1>
           <p className='text-left text-base w-3/4'>"Craving pizza? [Your Website Name] brings fresh, hot, and delicious pizzas right to your door. Customize your favorite flavors and enjoy fast delivery with just a few clicks. Your perfect slice is just an order away!"</p>
         */}
-        <img className='object-contain h-full ' src='../../../public/76745d89868413.5e04311b1b5f4-removebg-preview.png'/>
+        <img className='object-contain h-full ' src='/76745d89868413.5e04311b1b5f4-removebg-preview.png'/>
         </div> 
     </div>
   );

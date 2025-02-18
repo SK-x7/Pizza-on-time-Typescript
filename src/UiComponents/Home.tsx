@@ -33,7 +33,7 @@ function Home() {
         <div className="w-5/6 sm:w-5/6 sm:max-w-96 xl:w-4/5 xl:max-w-full">
           <Link to="/menu">
             <div className="flex ring-2 ring-green-700 max-w-48  gap-2 px-1 py-2 rounded-xl justify-center items-center">
-              <div className=" h-7 w-max"><img className="object-cover h-full rotate-12" src="../../public/pizza-01.svg"/></div>
+              <div className=" h-7 w-max"><img className="object-cover h-full rotate-12" src="/pizza-01.svg"/></div>
               <span className="text-lg font-semibold text-green-800 uppercase">Order now</span>
             </div>
           </Link>
@@ -42,8 +42,8 @@ function Home() {
       {/* <div className="w-full sm:w-1/2 lg:flex-1 h-0 min-[420px]:flex  min-[425px]:flex-1 sm:!h-full sm:flex-wrap hidden justify-end items-start"> */}
       <div className="w-full sm:w-1/2 lg:flex-1 h-0 sm:flex sm:!h-full sm:flex-wrap hidden justify-end items-start">
         
-      <img className=" !object-contain h-1/2 md:h-full lg:object-contain" src="../../public/76745d89868413.5e04311b1b5f4-removebg-preview.png"/>
-      <img className=" !object-contain h-1/2 md:hidden" src="../../public/76745d89868413.5e04311b1b5f4-removebg-preview.png"/>
+      <img className=" !object-contain h-1/2 md:h-full lg:object-contain" src="/76745d89868413.5e04311b1b5f4-removebg-preview.png"/>
+      <img className=" !object-contain h-1/2 md:hidden" src="/76745d89868413.5e04311b1b5f4-removebg-preview.png"/>
       </div>
       </div>
       </div>
