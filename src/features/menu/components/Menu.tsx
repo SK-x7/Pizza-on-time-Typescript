@@ -11,6 +11,7 @@ export default function Menu() {
     // const [selectedPizza, setSelectedPizza] = useState<MenuItem | null>(null);
   
     const menu = useLoaderData() as MenuItem[];  //the data we fetched from our api before moving  to this route
+    
     function handleOpenModal(pizza: MenuItem) {
       setSelectedPizza(pizza);
       toggleModel(); // Opens modal

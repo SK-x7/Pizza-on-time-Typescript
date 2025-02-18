@@ -52,7 +52,7 @@ export default function CustomizeOrder({allIngredients,ingredients,id}:{allIngre
                           {ingredient}
                         </label>
                         <input
-                          className="h-4 w-4 accent-white yellow focus:outline-none focus:ring focus:ring-yellow-400 focus:ring-offset-2"
+                          className="h-4 w-4 yellow focus:outline-none focus:ring focus:ring-yellow-400 focus:ring-offset-2"
                           type="checkbox"
                           name="priority"
                           id="priority"

@@ -134,7 +134,7 @@ import { fetchAddress, getUserId, getUserName } from '../../users/userSlice';
         <div className=" flex flex-col gap-2 sm:flex-row sm:items-center">
           <label className="sm:basis-40 text-left">Phone number :</label>
           <div className="grow">
-            <input className="input w-full relative p-2  capitalize" type="tel" name="phone" required placeholder='Enter your phone number'/>
+            <input className="input w-full relative p-2 bg-white  capitalize" type="tel" name="phone" required placeholder='Enter your phone number'/>
             {formErrors?.phone && (
               <p className="mt-2 rounded-md bg-red-100 p-2 text-xs text-red-700">
                 {formErrors.phone}
@@ -147,7 +147,7 @@ import { fetchAddress, getUserId, getUserName } from '../../users/userSlice';
           <label className="sm:basis-40 text-left">Address :</label>
           <div className="grow">
             <input
-              className="input w-full !relative p-2  capitalize"
+              className="input w-full !relative p-2 bg-white   capitalize"
               type="text"
               name="address"
               required
@@ -173,7 +173,7 @@ import { fetchAddress, getUserId, getUserName } from '../../users/userSlice';
         <div className=" flex flex-col gap-2 sm:flex-row sm:items-center">
           <label className="sm:basis-40 text-left">Order Pin :</label>
           <div className="grow">
-            <input className="input w-full relative p-2 text-base capitalize" type="text" name="orderPin" required placeholder='Set the order pin'/>
+            <input className="input w-full relative p-2 text-base capitalize bg-white " type="text" name="orderPin" required placeholder='Set the order pin'/>
             {formErrors?.orderPin && (
               <p className="mt-2 rounded-md bg-red-100 p-2 text-xs text-red-700">
                 {formErrors.orderPin}

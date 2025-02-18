@@ -24,8 +24,8 @@ const UiContext=createContext<UiContextType|undefined>(undefined);
 
 
 function UiProvider({children}:{children:ReactNode}) {
-    // const [isRegularModalOpen,setIsRegularModalOpen]=useState<boolean>(false);
-    const [isRegularModalOpen,setIsRegularModalOpen]=useState<boolean>(true);
+    const [isRegularModalOpen,setIsRegularModalOpen]=useState<boolean>(false);
+    // const [isRegularModalOpen,setIsRegularModalOpen]=useState<boolean>(true);
     function toggleModel():void {
         setIsRegularModalOpen(!isRegularModalOpen);
     }

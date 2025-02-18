@@ -111,7 +111,7 @@ function AddToCartButton({isInCart,pizza,onCustomizeClick,currentQuantity}:AddTo
       pizzaId:id,
       name,
       quantity:1,
-      unitPrice,
+      unitPrice, 
       ingredients,
       totalPrice:unitPrice*1,
   }
@@ -121,7 +121,7 @@ function AddToCartButton({isInCart,pizza,onCustomizeClick,currentQuantity}:AddTo
   return <>
   {isInCart&&
     <div className='flex items-center !w-full justify-start gap-2 min-[375px]:gap-2 sm:gap-4 min-[425px]:justify-end'>
-      <button className="text-[10px] min-[375px]:text-xs py-1 px-2 min-[375px]:px-3  rounded-xl flex justify-center items-center   min-[425px]:px-4 sm:text-sm sm:py-2  xl:rounded-2xl bg-yellow-400 font-semibold uppercase tracking-wide text-stone-800 transition-colors duration-300 hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed" onClick={()=>onCustomizeClick(pizza)}>Customize</button>
+      <button className="text-[10px] min-[375px]:text-xs py-1 px-2 min-[375px]:px-3  rounded-xl flex justify-center items-center   min-[425px]:px-4 sm:text-sm sm:py-2  xl:rounded-2xl bg-yellow-400 font-semibold uppercase tracking-wide text-stone-800 transition-colors duration-300 hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed" onClick={(e)=>{e.preventDefault();onCustomizeClick(pizza)}}>Customize</button>
       <UpdateItemQuantity pizzaId={id} currentQuantity={currentQuantity}></UpdateItemQuantity>
     
     <DeleteItem pizzaId={id}></DeleteItem>
